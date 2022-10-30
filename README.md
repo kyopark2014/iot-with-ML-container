@@ -12,11 +12,13 @@ Greengrass에서는 Lambda를 Component로 등록하여 설치 및 배포환경�
 
 1) Greengrass에서 사용하는 ML Algorithm은 Jupyter Notebook이나 Amazon Sagemaker를 통해 학습되어지고, 이때 만들어진 알고리즘은 저장되어 container image로 저장되어 이후 Lambda에 배포되어 집니다. 
 
-2) Lambda의 편리한 인터페이스를 통해 ML Algorithm은 충분히 검증 되어지고, Greengrass 디바이스에 배포할 준비가 되면, AWS Greengrass를 통해 디바이스 또는 디바이스 그룹에 배포할 수 있습니다. 
+2) Lambda의 편리한 인터페이스를 통해 ML Algorithm은 충분히 검증 되어지고, Greengrass 디바이스에 배포할 준비가 되면, 디바이스 또는 디바이스 그룹으로 배포할 수 있습니다. 
 
 3) Greengrass 디바이스는 ML 기능을 lambda component로 관리할 수 있습니다. 
 
-4) 
+4) Greengrass에 설치된 component들은 ML component에 PUBSUB으로 inference 요청을 수행합니다.
+
+5) ML model이 업그레이드 되는 경우에 Lambda를 통해 기능검증을 하고, 충분히 검증되면, AWS Greeengrass를 통해 device에 새로운 모델을 배포할 수 있습니다. 
 
 
 ## Reference
