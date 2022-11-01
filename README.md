@@ -26,3 +26,7 @@ Greengrass에서는 Lambda를 Component로 등록하여 설치 및 배포환경�
 [Run AWS Lambda functions in Greengrass V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/run-lambda-functions.html)
 
 [AWS Lambda의 새로운 기능 — 컨테이너 이미지 지원](https://aws.amazon.com/ko/blogs/korea/new-for-aws-lambda-container-image-support/)
+
+[AWS Edge computing example with Lambda and IoT Greengrass (version 2)](https://medium.com/@rostyslav.myronenko/aws-edge-computing-example-with-lambda-and-iot-greengrass-version-2-aa68f2cc246)
+
+[How to configure optimized machine learning inference using the AWS Management Console - V1](https://docs.aws.amazon.com/greengrass/v1/developerguide/ml-dlc-console.html)
