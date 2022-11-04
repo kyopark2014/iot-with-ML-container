@@ -10,7 +10,7 @@
 
 여기에서는 AWS Lambda를 IoT 디바이스에서 동작하게 함으로써, 손쉽게 XGBoost 머신러닝 알고리즘을 활용하는 방법에 대해 설명합니다. 
 
-이와같이 ML 알고리즘을 Greengrass의 component로 등록하여 사용하면, Lambda의 기능이 Greeengrass가 설치된 디바이스에서 실행되므로, 1) 네트워크 연결없이 머신러닝을 활용할 수 있고, 2) 디바이스 숫자가 늘더라도 서버에 영향을 주지 않으며, 3) 추론을 위한 API 호출 비용이 발생하지 않습니다. 또한,Greengrass의 Lambda 컴퍼넌트는 디바이스 종류에 관계없이 동일한 개발 및 배포 환경을 제공하므로, 다수의 다른 디바이스들이 머신러닝 알고리즘을 필요할 경우에 개발과 배포에 대한 부담을 줄일 수 있습니다. 
+이와같이 머신러닝 알고리즘을 Greengrass의 component로 등록함으로 Lambda의 기능이 Greeengrass가 설치된 디바이스에서 실행되면, 1) 네트워크 연결없이 머신러닝을 활용할 수 있고, 2) 디바이스 숫자가 늘더라도 서버에 영향을 주지 않으며, 3) 추론을 위한 API 호출 비용이 발생하지 않습니다. 또한, Greengrass의 Lambda 컴퍼넌트는 디바이스 종류에 관계없이 동일한 개발 및 배포 환경을 제공하므로, 다수의 다른 디바이스들이 머신러닝 알고리즘을 필요할 경우에 개발과 배포에 대한 부담을 줄일 수 있습니다. 
 
  
 <!--
@@ -21,15 +21,15 @@ Greengrass에서는 Lambda를 Component로 등록하여 설치 및 배포환경�
 
 이를 위한 전체적인 과정은 아래와 같습니다. 
 
-1) Greengrass에서 사용하는 ML Algorithm은 Jupyter Notebook이나 Amazon Sagemaker를 통해 학습되어지고, 이때 만들어진 알고리즘은 저장되어 container image로 저장되어 이후 Lambda에 배포되어 집니다. 
+1) Greengrass에서 사용하는 머신러닝 알고리즘은 Jupyter Notebook이나 Amazon Sagemaker를 통해 학습되어지고, 이때 만들어진 알고리즘은 저장되어 컨테이너 이미지로 저장되어 Lambda에 배포되어 집니다. 
 
-2) Lambda의 편리한 인터페이스를 통해 ML Algorithm은 충분히 검증 되어지고, Greengrass 디바이스에 배포할 준비가 되면, 디바이스 또는 디바이스 그룹으로 배포할 수 있습니다. 
+2) Lambda의 편리한 인터페이스를 통해 머신러닝 알고리즘은 충분히 검증 되어지고, 디바이스 또는 디바이스 그룹으로 배포될 수 있습니다.
 
-3) Greengrass 디바이스는 ML 기능을 lambda component로 관리할 수 있습니다. 
+3) Greengrass 디바이스는 머신러닝 기능을 lambda 컴포넌트로 편리하게 관리할 수 있습니다. 
 
-4) Greengrass에 설치된 component들은 ML component에 PUBSUB으로 inference 요청을 수행합니다.
+4) 디바이스에서 머신러닝을 실제로 활용하는 Greengrass 컴포넌트들은 서버에 머신러닝 요청을 하듯이 디바이스 내부의 머신러닝 컴포넌트에게 PUBSUB 방식으로 요청합니다.
 
-5) ML model이 업그레이드 되는 경우에 Lambda를 통해 기능검증을 하고, 충분히 검증되면, AWS Greeengrass를 통해 device에 새로운 모델을 배포할 수 있습니다. 
+5) 이후 머신러닝 알고리즘이 업데이트 되면, Lambda를 통해 기능검증을 하여 충분히 검증된다믐에, AWS Greeengrass를 통해 다수의 다른 디바이스에 편리하게 배포할 수 있습니다. 
 
 
 
