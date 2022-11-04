@@ -9,7 +9,7 @@
 2020년 12월부터 [Lambda가 Container이미지를 지원](https://aws.amazon.com/ko/blogs/korea/new-for-aws-lambda-container-image-support/)함으로써, Lambda에 Container를 등록하여 사용할 수 있습니다. Machine Learning 알고리즘을 활용하기 위해서는 Inference를 제공할수 있는 API를 준비하여야 하는데, 사용한 만큼만 과금되고 별도 관리가 필요하지 않은 Lambda Serverless는 Machine Learning의 Inference API를 제공할 수 있는 유용한 방법입니다. 
 
 
-이와같이 머신러닝 알고리즘을 Greengrass의 component로 등록함으로 Lambda의 기능이 Greeengrass가 설치된 디바이스에서 실행되면, 1) 네트워크 연결없이 머신러닝을 활용할 수 있고, 2) 디바이스 숫자가 늘더라도 서버에 영향을 주지 않으며, 3) 추론을 위한 API 호출 비용이 발생하지 않습니다. 또한, Greengrass의 Lambda 컴퍼넌트는 디바이스 종류에 관계없이 동일한 개발 및 배포 환경을 제공하므로, 다수의 다른 디바이스들이 머신러닝 알고리즘을 필요할 경우에 개발과 배포에 대한 부담을 줄일 수 있습니다. 
+이와같이 머신러닝 알고리즘을 Greengrass의 컴포넌트로 등록함으로 Lambda의 기능이 Greeengrass가 설치된 디바이스에서 실행되면, 1) 네트워크 연결없이 머신러닝을 활용할 수 있고, 2) 디바이스 숫자가 늘더라도 서버에 영향을 주지 않으며, 3) 추론을 위한 API 호출 비용이 발생하지 않습니다. 또한, Greengrass의 Lambda 컴퍼넌트는 디바이스 종류에 관계없이 동일한 개발 및 배포 환경을 제공하므로, 다수의 다른 디바이스들이 머신러닝 알고리즘을 필요할 경우에 개발과 배포에 대한 부담을 줄일 수 있습니다. 
 
  
 <!--
