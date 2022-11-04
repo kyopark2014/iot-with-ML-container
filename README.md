@@ -21,6 +21,11 @@ Greengrass에서는 Lambda를 Component로 등록하여 설치 및 배포환경�
 5) ML model이 업그레이드 되는 경우에 Lambda를 통해 기능검증을 하고, 충분히 검증되면, AWS Greeengrass를 통해 device에 새로운 모델을 배포할 수 있습니다. 
 
 
+
+IoT 디바이스가 
+
+
+
 ## Reference
 
 [Run AWS Lambda functions in Greengrass V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/run-lambda-functions.html)
