@@ -1,22 +1,21 @@
 # AWS Lambda를 이용하여 IoT 디바이스에 XGBoost 머신러닝 알고리즘 적용하기 
 
-ML 활용이 일반화 되면서 IoT 디바이스에서도 ML을 활용하려는 요구가 증가하고 있습니다. ML 알고리즘중 XGBoost는 빠르고 정확할뿐 아니라, 분류(Classficiation)와 회귀(Regression)문제에 모두 적용할 수 있어서 널리 활용되어 지고 있습니다. 
+머신러닝(Machine Learning) 활용이 일반화 되면서 IoT 디바이스에서도 머신러닝을 활용하려는 요구가 증가하고 있습니다. 머신러닝 알고리즘중 XGBoost는 빠르고 정확할뿐 아니라, 분류(Classficiation)와 회귀(Regression)문제에 모두 적용할 수 있어서 널리 활용되어 지고 있습니다. 
 
-IoT 디바이스가 ML 추론(Inferece)를 동작에 활용하기 위하여 매번 서버의 추촌 API를 호출하려면, 1) 항상 네트워크에 접속이 가능하여야 하고, 2) 디바이스의 숫자가 증가하면 서버의 처리 용량이 동일하게 증가되어야 하고, 3) 추론을 위한 API 호출 비용으로 ML을 활용하는데 제한 요소가 될 수 있습니다. 
+머신러닝 알고리즘을 IoT 디바이스의 동작에 활용하기 위해서 서버 API를 활용하려면, 1) 항상 네트워크에 접속이 가능하여야 하고, 2) 디바이스의 숫자가 증가하면 서버의 처리 용량이 동일하게 증가되어야 하고, 3) 추론을 위한 API 호출 비용으로 ML을 활용하는데 제한 요소가 될 수 있습니다. 
 
-여기에서는 AWS Lambda를 IoT 디바이스에서 동작하게 함으로써, 손쉽게 XGBoost 머신러닝 알고리즘을 활용하는 방법에 대해 설명합니다. 
-
-
-[Greengrass V2에서는 Lambda함수를 쉽게 실행](https://docs.aws.amazon.com/greengrass/v2/developerguide/run-lambda-functions.html)할 수 있습니다. aws.greengrass.LambdaLauncher을 이용하여 process와 환경을 관리할 수 있고, aws.greengrass.LambdaManager를 이용하여 IPC를 관리할 수 있으며, aws.greengrass.LambdaRuntimes으로 lambda runtime을 구동할 수 있습니다. 
+[Greengrass V2에서는 IoT 디바이스에서 Lambda함수를 쉽게 실행](https://docs.aws.amazon.com/greengrass/v2/developerguide/run-lambda-functions.html)할 수 있습니다. aws.greengrass.LambdaLauncher을 이용하여 process와 환경을 관리할 수 있고, aws.greengrass.LambdaManager를 이용하여 IPC를 관리할 수 있으며, aws.greengrass.LambdaRuntimes으로 lambda runtime을 구동할 수 있습니다. 
 
 2020년 12월부터 [Lambda가 Container이미지를 지원](https://aws.amazon.com/ko/blogs/korea/new-for-aws-lambda-container-image-support/)함으로써, Lambda에 Container를 등록하여 사용할 수 있습니다. Machine Learning 알고리즘을 활용하기 위해서는 Inference를 제공할수 있는 API를 준비하여야 하는데, 사용한 만큼만 과금되고 별도 관리가 필요하지 않은 Lambda Serverless는 Machine Learning의 Inference API를 제공할 수 있는 유용한 방법입니다. 
 
-이와같이 ML 알고리즘을 Greengrass의 component로 등록하여 사용하면, Lambda의 기능이 Greeengrass가 설치된 디바이스에서 실행되므로, 1) 네트워크 연결없이 머신러닝을 활용할 수 있고, 2) 디바이스 숫자가 늘더라도 서버에 영향을 주지 않으며, 3) 추론을 위한 API 호출 비용이 발생하지 않습니다. 또한, 기존에 ML을 component로 등록하기 위해 필요로 했던, ML에 대한 많은 지식을 필요로 하지 않으며, 디바이스별로 최적화할 필요없이, 
+여기에서는 AWS Lambda를 IoT 디바이스에서 동작하게 함으로써, 손쉽게 XGBoost 머신러닝 알고리즘을 활용하는 방법에 대해 설명합니다. 
 
-Greengrass의 Lambda 컴퍼넌트는 디바이스 종류에 관계없이 동일한 환경을 제공하므로, 다수의 디바이스들에 디바이스별 별도의 시험없이 배포를 할 수 있습니다. 
+이와같이 ML 알고리즘을 Greengrass의 component로 등록하여 사용하면, Lambda의 기능이 Greeengrass가 설치된 디바이스에서 실행되므로, 1) 네트워크 연결없이 머신러닝을 활용할 수 있고, 2) 디바이스 숫자가 늘더라도 서버에 영향을 주지 않으며, 3) 추론을 위한 API 호출 비용이 발생하지 않습니다. 또한,Greengrass의 Lambda 컴퍼넌트는 디바이스 종류에 관계없이 동일한 개발 및 배포 환경을 제공하므로, 다수의 다른 디바이스들이 머신러닝 알고리즘을 필요할 경우에 개발과 배포에 대한 부담을 줄일 수 있습니다. 
 
-
+ 
 <!--
+또한, 기존에 ML을 component로 등록하기 위해 필요로 했던, ML에 대한 많은 지식을 필요로 하지 않으며, 디바이스별로 최적화할 필요없이, 
+
 IoT Device에서 머신러닝 알고리즘을 활용하기 위하여 Greengrass의 ML Component를 활용할 수 있습니다. 하지만, 이를 위해서는 ML에 대해 충분한 이해를 통해 디바이스에 ML 환경을 구축하여야 하고, 배포시 디바이스별로 테스트가 필요합니다. 
 Greengrass에서는 Lambda를 Component로 등록하여 설치 및 배포환경을 손쉽게 제공할 수 있으므로, ML algorithm을 Container 환경으로 제공할 수 있다면, Greengrass에서 ML 기능을 활용할 때 유용하게 사용할 수 있습니다.-->
 
