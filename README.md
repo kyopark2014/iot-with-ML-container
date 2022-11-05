@@ -34,7 +34,7 @@ Greengrass에서는 Lambda를 Component로 등록하여 설치 및 배포환경�
 
 
 
-
+Greengrass V1.x에서는 Docker connector를 이용하였고 V2.0에서는 Component의 Recipy의 environment variable에 정의된 registry에서 Docker Component를 생성하게 됩니다.
 
 
 
