@@ -48,3 +48,5 @@ Greengrass V1.x에서는 Docker connector를 이용하였고 V2.0에서는 Compo
 [AWS Edge computing example with Lambda and IoT Greengrass (version 2)](https://medium.com/@rostyslav.myronenko/aws-edge-computing-example-with-lambda-and-iot-greengrass-version-2-aa68f2cc246)
 
 [How to configure optimized machine learning inference using the AWS Management Console - V1](https://docs.aws.amazon.com/greengrass/v1/developerguide/ml-dlc-console.html)
+
+[AWS CDK: Deploy Lambda with Docker](https://sbstjn.com/blog/aws-cdk-lambda-docker-container-example/)
