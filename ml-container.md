@@ -2,7 +2,7 @@
 
 여기서는 머신러닝 컨테이너를 준비하는 과정에 대해 설명합니다. 
 
-## XGBoost 머신러닝 
+## XGBoost 머신러닝
 
 [Wine Quality Data Set](https://archive.ics.uci.edu/ml/datasets/wine+quality)을 이용하여, [Wine Quality을 예측](https://github.com/kyopark2014/ML-Algorithms/tree/main/kaggle/xgboost-wine-quality)을 하기 위해여, [XGBoost 알고리즘](https://github.com/kyopark2014/ML-Algorithms/blob/main/xgboost.md)을 이용합니다. 먼저, [XGBoost를 이용한 Wine Quality](https://github.com/kyopark2014/ML-Algorithms/tree/main/kaggle/xgboost-wine-quality)에서 [xgboost-wine-quality-EDA.ipynb](https://github.com/kyopark2014/ML-Algorithms/blob/main/kaggle/xgboost-wine-quality/xgboost-wine-quality-EDA.ipynb)을 통해 [특성공학(Feature Engineering)](https://github.com/kyopark2014/ML-Algorithms/blob/main/feature-enginnering.md)을 적용하여, [wine_concat.csv](https://github.com/kyopark2014/ML-Algorithms/blob/main/kaggle/xgboost-wine-quality/data/wine_concat.csv)로 데이터셋을 변환됩니다.
 
