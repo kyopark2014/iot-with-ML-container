@@ -2,13 +2,18 @@
 
 여기서는 머신러닝 컨테이너를 준비하는 과정에 대해 설명합니다. 
 
-## Lambda를 이용한 추론(Inference) 시스템 구성
+## XGBoost 머신러닝 
 
-[inference.py](https://github.com/kyopark2014/ML-xgboost/blob/main/wine-quality/src/inference.py)에서는 기학습된 XGBoost 모델인 [xgboost_wine_quality.json](https://github.com/kyopark2014/ML-xgboost/blob/main/wine-quality/src/xgboost_wine_quality.json)을 이용하여 추론을 수행할 수 있습니다. 이를 Docker를 이용해 Lambda에서 실행하기 위해서는 아래와 같이 Dockerfile을 생성하여야 합니다. 
+[Wine Quality Data Set](https://archive.ics.uci.edu/ml/datasets/wine+quality)을 이용하여, [Wine Quality을 예측](https://github.com/kyopark2014/ML-Algorithms/tree/main/kaggle/xgboost-wine-quality)을 하기 위해여, [XGBoost 알고리즘](https://github.com/kyopark2014/ML-Algorithms/blob/main/xgboost.md)을 이용합니다. 먼저, [XGBoost를 이용한 Wine Quality](https://github.com/kyopark2014/ML-Algorithms/tree/main/kaggle/xgboost-wine-quality)에서 [xgboost-wine-quality-EDA.ipynb](https://github.com/kyopark2014/ML-Algorithms/blob/main/kaggle/xgboost-wine-quality/xgboost-wine-quality-EDA.ipynb)을 통해 [특성공학(Feature Engineering)](https://github.com/kyopark2014/ML-Algorithms/blob/main/feature-enginnering.md)을 적용하여, [wine_concat.csv](https://github.com/kyopark2014/ML-Algorithms/blob/main/kaggle/xgboost-wine-quality/data/wine_concat.csv)로 데이터셋을 변환됩니다.
+
+[Wine Quality (Regression)](https://github.com/kyopark2014/ML-Algorithms/blob/main/regression.md)에서는 jupyter notebook으로 작성된 XGBoost 알고리즘을 [xgboost-wine-quality.py](https://github.com/kyopark2014/ML-xgboost/blob/main/wine-quality/src/xgboost-wine-quality.py)와 같이 Python 코드로 변환한 후에, 학습(Training)을 수행합니다. 학습의 결과로 [xgboost_wine_quality.json](https://github.com/kyopark2014/ML-xgboost/blob/main/wine-quality/src/xgboost_wine_quality.json)이 만들어집니다. 
+
+여기서는, 이렇게 학습된 XGBoost 모델인 [xgboost_wine_quality.json](https://github.com/kyopark2014/ML-xgboost/blob/main/wine-quality/src/xgboost_wine_quality.json)을 이용하여, 머신러닝 동작을 수행할 수 있도록 [inference.py](https://github.com/kyopark2014/ML-xgboost/blob/main/wine-quality/src/inference.py)으로 추론(Inference)을 수행합니다. 
+
 
 ### Docker Image 준비
 
-[Dockerfile](https://github.com/kyopark2014/lambda-with-ML-container/blob/main/src/Dockerfile)은 아래와 같이 AWS Lambda와 Python 3.8 위하여 AWS에서 제공하는 이미지를 활용합니다. 먼저 pip, joblib, scikit-learn등 필수 라이브러리를 설치하고, directory를 지정하고, 필요한 파일들을 복사합니다. 또한 [requirements.txt](https://github.com/kyopark2014/lambda-with-ML-container/blob/main/src/requirements.txt)에 따라 필요한 라이브러리를 버전에 맞추어 설치합니다. 여기서는 [inference.py](https://github.com/kyopark2014/lambda-with-ML-container/blob/main/src/inference.py)의 handler()를 이용해 추론(inference)를 수행합니다. 이때 사용하는 모델은 [Wine Quality (Regression)](https://github.com/kyopark2014/ML-xgboost/tree/main/wine-quality)에서 학습시킨 [xgboost_wine_quality.json](https://github.com/kyopark2014/lambda-with-ML-container/blob/main/src/xgboost_wine_quality.json)입니다. 
+IoT 디바이스의 특성한 다양한 디바이스에 동일한 머신러닝 동작을 수행하여야 하므로, Docker를 이용해 컨테이너 환경에서 머신러닝 동작을 수행하고자 합니다. Docker용 이미지를 생성하기 위하여 아래와 같이 Dockerfile을 생성하여야 합니다. 
 
 ```java
 FROM amazon/aws-lambda-python:3.8
@@ -27,11 +32,15 @@ RUN pip install -r requirements.txt
 CMD ["inference.handler"]
 ```
 
-Dockerfile로 Docker image를 생성한 후에 Lambda에서 해당 이미지를 로드하여 추론을 수행합니다. [AWS CDK](https://github.com/kyopark2014/technical-summary/blob/main/cdk-introduction.md)는 대표적인 IaC(Infrastructure as Code) 툴로서, Docker Image를 빌드하고 [Amazon ECR](https://aws.amazon.com/ko/ecr/)에 업로드한 후 Lambda에서 활용할 수 있습니다. 또한, Lambda를 생성된 추론용 API를 외부에서 접속할 수 있도록 [Lambda Functional URL](https://github.com/kyopark2014/lambda-function-url)을 활용합니다.
+[Dockerfile](https://github.com/kyopark2014/lambda-with-ML-container/blob/main/src/Dockerfile)에서는 AWS Lambda와 Python 3.8 위하여 AWS에서 제공하는 이미지를 활용합니다. 이것은 추후 Lambda와의 호환성과 배포환경을 유사하게 이끌어서 배포 및 검증을 원할히 하기 위함입니다. 
 
-## Image Debugging
+pip, joblib, scikit-learn등 필수 라이브러리를 설치하고, directory를 지정하고, 필요한 파일들을 복사합니다. 또한 [requirements.txt](https://github.com/kyopark2014/lambda-with-ML-container/blob/main/src/requirements.txt)에 따라 필요한 라이브러리를 버전에 맞추어 설치합니다. 여기서는 [inference.py](https://github.com/kyopark2014/lambda-with-ML-container/blob/main/src/inference.py)의 handler()를 이용해 추론(inference)를 수행합니다. 이때 사용하는 모델은 [Wine Quality (Regression)](https://github.com/kyopark2014/ML-xgboost/tree/main/wine-quality)에서 학습시킨 [xgboost_wine_quality.json](https://github.com/kyopark2014/lambda-with-ML-container/blob/main/src/xgboost_wine_quality.json)입니다. 
 
-Docker 이미지에 설치된 라이브러리 버전등이 학습 환경과 다른 경우에, 정상적으로 동작하지 않을수 있습니다. 이를 확인하려면, 인프라를 설치(Deploy)한 후에 로그를 통해 확인하여야 하는데, 반복적으로 인프라를 설치하면서 디버깅하는 과정은 시간을 많이 소모합니다. 아래에서는 docker 이미지에서 직접 테스트하는 방법을 보여주고 있습니다. 
+
+
+## 동작 확인 방법
+
+Docker 이미지에 설치된 라이브러리 버전등이 학습 환경과 다른 경우에, 정상적으로 동작하지 않을수 있습니다. 이를 확인하기 위하여 아래와 같이 docker 컨테이너에서 테스트를 수행합니다. 
 
 Docker 소스로 이동하여 이미지를 빌드합니다. 
 
