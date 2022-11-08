@@ -1,16 +1,18 @@
-# AWS Lambda를 이용하여 IoT 디바이스에 XGBoost 머신러닝 알고리즘 적용하기 
-
-
-**컨테이너 이미지 방식으로 AWS Lambda를 구현한 경우는 IoT Greengrass에서 불러서 사용할 수 없습니다. (2022.11.7)**
-
-추후 해당 기능을 제공하면 이 git을 재활용할 예정임
-
+# IoT 디바이스에 XGBoost 머신러닝(ML) 적용하기 
 
 머신러닝(Machine Learning) 활용이 일반화 되면서 IoT 디바이스에서도 머신러닝을 활용하려는 요구가 증가하고 있습니다. [XGBoost](https://github.com/kyopark2014/ML-Algorithms/blob/main/xgboost.md)는 빠르고 정확한 머신러닝 알고리즘이고, [분류(Classficiation)](https://github.com/kyopark2014/ML-Algorithms/blob/main/classification.md)와 [회귀(Regression)](https://github.com/kyopark2014/ML-Algorithms/blob/main/regression.md)문제에 모두 적용할 수 있어서 널리 활용되어 지고 있습니다. 
 
 머신러닝 알고리즘을 IoT 디바이스의 동작에 활용하기 위해서 머신러닝 서버 API를 이용하면, 1) 디바이스는 항상 네트워크에 접속이 가능하여야 하고, 2) 디바이스의 숫자가 증가하면 서버의 처리 용량이 동일하게 증가되어야 하고, 3) 추론을 위한 API 호출 비용 부담으로 인해서, IoT 디바이스에서 머신러닝을 활용할 때 제한 요소가 될 수 있습니다. 
 
-AWS Greengrass V2는 오픈소스 edge runtime으로 2022년에 re-invtent에서 소개되었습니다. [Greengrass V2에서는 IoT 디바이스에서 Lambda함수를 쉽게 실행](https://docs.aws.amazon.com/greengrass/v2/developerguide/run-lambda-functions.html)할 수 있는 환경을 제공합니다. aws.greengrass.LambdaLauncher을 이용하여 process와 환경을 관리할 수 있고, aws.greengrass.LambdaManager를 이용하여 IPC를 관리할 수 있으며, aws.greengrass.LambdaRuntimes으로 lambda runtime을 구동할 수 있습니다. 
+AWS Greengrass V2는 오픈소스 edge runtime으로 2022년에 re-invtent에서 소개되었습니다. Java 기반의 Core는 Docker 컨테이너를 사용할 수 있는 component를 제공하고, [IoT Greengrass Deployments](https://ap-northeast-2.console.aws.amazon.com/iot/home?region=ap-northeast-2#/greengrass/v2/deployments)를 통해 편리한 배포 환경을 제공합니다. 
+
+
+<!--
+[Greengrass V2에서는 IoT 디바이스에서 Lambda함수를 쉽게 실행](https://docs.aws.amazon.com/greengrass/v2/developerguide/run-lambda-functions.html)할 수 있는 환경을 제공합니다. aws.greengrass.LambdaLauncher을 이용하여 process와 환경을 관리할 수 있고, aws.greengrass.LambdaManager를 이용하여 IPC를 관리할 수 있으며, aws.greengrass.LambdaRuntimes으로 lambda runtime을 구동할 수 있습니다. 
+
+**컨테이너 이미지 방식으로 AWS Lambda를 구현한 경우는 IoT Greengrass에서 불러서 사용할 수 없습니다. (2022.11.7)**
+추후 해당 기능을 제공하면 이 git을 재활용할 예정임  -->
+
 
 2020년 12월부터 [Lambda가 Container이미지를 지원](https://aws.amazon.com/ko/blogs/korea/new-for-aws-lambda-container-image-support/)함으로써, Lambda에 Container를 등록하여 사용할 수 있습니다. Machine Learning 알고리즘을 활용하기 위해서는 Inference를 제공할수 있는 API를 준비하여야 하는데, 사용한 만큼만 과금되고 별도 관리가 필요하지 않은 Lambda Serverless는 Machine Learning의 Inference API를 제공할 수 있는 유용한 방법입니다. 
 
@@ -26,18 +28,18 @@ AWS Greengrass V2는 오픈소스 edge runtime으로 2022년에 re-invtent에서
 IoT Device에서 머신러닝 알고리즘을 활용하기 위하여 Greengrass의 ML Component를 활용할 수 있습니다. 하지만, 이를 위해서는 ML에 대해 충분한 이해를 통해 디바이스에 ML 환경을 구축하여야 하고, 배포시 디바이스별로 테스트가 필요합니다. 
 Greengrass에서는 Lambda를 Component로 등록하여 설치 및 배포환경을 손쉽게 제공할 수 있으므로, ML algorithm을 Container 환경으로 제공할 수 있다면, Greengrass에서 ML 기능을 활용할 때 유용하게 사용할 수 있습니다.-->
 
+
 이를 위한 전체적인 과정은 아래와 같습니다. 
 
 1) Greengrass에서 사용하는 머신러닝 알고리즘은 Jupyter Notebook이나 Amazon Sagemaker를 통해 학습되어지고, 이때 만들어진 알고리즘은 저장되어 컨테이너 이미지로 저장되어 Lambda에 배포되어 집니다. 
 
-2) Lambda의 편리한 인터페이스를 통해 머신러닝 알고리즘은 충분히 검증 되어지고, 디바이스 또는 디바이스 그룹으로 배포될 수 있습니다.
+2) Lambda의 편리한 인터페이스를 통해 머신러닝 알고리즘은 충분히 검증 되어지고, IoT Greengrass를 이용해 Docker 컨테이너 환경에서 안정적으로 디바이스 또는 디바이스 그룹으로 배포될 수 있습니다.
 
-3) Greengrass 디바이스는 머신러닝 기능을 lambda 컴포넌트로 편리하게 관리할 수 있습니다. 
+3) Greengrass 디바이스는 머신러닝 기능을 IoT Greengrass에서 Component로 편리하게 관리할 수 있습니다. 
 
-4) 디바이스에서 머신러닝을 실제로 활용하는 Greengrass 컴포넌트들은 서버에 머신러닝 요청을 하듯이 디바이스 내부의 머신러닝 컴포넌트에게 PUBSUB 방식으로 요청합니다.
+4) 디바이스에서 머신러닝을 실제로 활용하는 Greengrass Component들은 서버에 머신러닝 요청을 하듯이 디바이스 내부의 머신러닝 컴포넌트에게 PUBSUB 방식으로 요청합니다.
 
 5) 이후 머신러닝 알고리즘이 업데이트 되면, Lambda를 통해 기능검증을 하여 충분히 검증된다믐에, AWS Greeengrass를 통해 다수의 다른 디바이스에 편리하게 배포할 수 있습니다. 
-
 
 
 Greengrass V1.x에서는 Docker connector를 이용하였고 V2.0에서는 Component의 Recipy의 environment variable에 정의된 registry에서 Docker Component를 생성하게 됩니다.
