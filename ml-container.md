@@ -108,3 +108,21 @@ result: [6.573914 4.869721]
 [6.573914051055908, 4.869720935821533]
 Elapsed time: 0.02s
 ```
+
+## Docker image 저장
+
+아래와 같이 빌드된 Docker image를 저장합니다.
+
+```java
+docker save mlxgboost:v1 > ../image/mlxgboost.tar
+```
+
+저장된 파일에 대한 정보는 아래와 같습니다. 
+
+```java
+$ ls -al
+total 3408000
+drwxr-xr-x  3 ksdyb  staff          96 Nov  9 08:57 .
+drwxr-xr-x  5 ksdyb  staff         160 Nov  9 08:57 ..
+-rw-r--r--  1 ksdyb  staff  1729795072 Nov  9 08:56 mlxgboost.tar
+```
