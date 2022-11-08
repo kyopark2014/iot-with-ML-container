@@ -45,8 +45,8 @@ Docker 이미지에 설치된 라이브러리 버전등이 학습 환경과 다�
 Docker 소스로 이동하여 이미지를 빌드합니다. 
 
 ```java
-cd src
-docker build -t inference:v1 .
+cd src/ml-container
+docker build -t mlxgboost:v1 .
 ```
 
 빌드된 이미지를 확인합니다. 
@@ -54,10 +54,16 @@ docker build -t inference:v1 .
 ```java
 docker images
 ```
+이때의 결과는 아래와 같습니다.
+
+```java
+REPOSITORY   TAG       IMAGE ID       CREATED              SIZE
+mlxgboost    v1        2ca608b82844   About a minute ago   1.7GB
+```
 
 Docker를 실행합니다. 
 ```java
-docker run -d -p 8080:8080 inference:v1
+docker run -d -p 8080:8080 mlxgboost:v1
 ```
 
 
@@ -70,14 +76,14 @@ docker ps
 아래와 같이 Container ID를 확인 할 수 있습니다. 
 
 ```java
-CONTAINER ID   IMAGE          COMMAND                  CREATED         STATUS         PORTS                    NAMES
-41e297948511   inference:v1   "/lambda-entrypoint.…"   6 seconds ago   Up 4 seconds   0.0.0.0:8080->8080/tcp   stupefied_carson
+CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS          PORTS                    NAMES
+7dbb65ca1df7   mlxgboost:v1   "/lambda-entrypoint.…"   36 seconds ago   Up 35 seconds   0.0.0.0:8080->8080/tcp   youthful_bhaskara
 ```
 
 아래와 같이 Bash shell로 접속합니다. 
 
 ```java
-docker exec -it  41e297948511 /bin/bash
+docker exec -it  7dbb65ca1df7 /bin/bash
 ```
 
 [inference-test.py](https://github.com/kyopark2014/lambda-with-ML-container/blob/main/src/inference-test.py)는 [samples.json](https://github.com/kyopark2014/lambda-with-ML-container/blob/main/src/samples.json)을 로드하여 Lambda의 event와 동일한 input을 만든 후에, [inference.py](https://github.com/kyopark2014/lambda-with-ML-container/blob/main/src/inference.py)을 테스트합니다. 따라서, "python3 inference-test.py"와 같이 실행하여, inference.py가 정상적으로 동작하는지 확인할 수 있습니다.
