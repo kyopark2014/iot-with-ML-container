@@ -31,7 +31,7 @@ Greengrass에서는 Lambda를 Component로 등록하여 설치 및 배포환경�
 
 이를 위한 전체적인 과정은 아래와 같습니다. 
 
-1) Greengrass에서 사용하는 머신러닝 알고리즘은 Jupyter Notebook이나 Amazon Sagemaker를 통해 학습되어지고, 이때 만들어진 알고리즘은 저장되어 컨테이너 이미지로 저장되어 Lambda에 배포되어 집니다. 
+1) IoT 디바이스에서 사용하는 머신러닝 알고리즘은 Jupyter Notebook이나 Amazon Sagemaker를 통해 학습되어지고, 이때 만들어진 알고리즘은 저장되어 컨테이너 이미지로 저장되어 Lambda에 배포되어 집니다. 
 
 2) Lambda의 편리한 인터페이스를 통해 머신러닝 알고리즘은 충분히 검증 되어지고, IoT Greengrass를 이용해 Docker 컨테이너 환경에서 안정적으로 디바이스 또는 디바이스 그룹으로 배포될 수 있습니다.
 
