@@ -42,11 +42,19 @@ Caused by: software.amazon.awssdk.services.ecr.model.EcrException: User: arn:aws
 
 ## Docker Daemon Permission Denied
 
+아래와 같이 Docker 실행에 실패한 로그가 발생할 수 있습니다.
+
+
 ```java
 2022-11-09T16:14:22.422Z [INFO] (pool-2-thread-22) com.ml.xgboost: shell-runner-start. {scriptName=services.com.ml.xgboost.lifecycle.Run, serviceName=com.ml.xgboost, currentState=STARTING, command=["docker run 677146750822.dkr.ecr.ap-northeast-2.amazonaws.com/cdk-hnb659fds-con..."]}
 2022-11-09T16:14:22.446Z [WARN] (Copier) com.ml.xgboost: stderr. docker: Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Post "http://%2Fvar%2Frun%2Fdocker.sock/v1.24/containers/create": dial unix /var/run/docker.sock: connect: permission denied.. {scriptName=services.com.ml.xgboost.lifecycle.Run, serviceName=com.ml.xgboost, currentState=RUNNING}
 ```
 
+아래와 같이 greengrass user group에 docker를 추가합니다. 
+
+```java
+sudo usermod -aG docker ggc_user
+```
 
 
 ## Reference 
