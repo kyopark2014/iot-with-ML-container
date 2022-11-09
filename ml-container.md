@@ -109,7 +109,7 @@ result: [6.573914 4.869721]
 Elapsed time: 0.02s
 ```
 
-## Docker image 저장
+## Docker 이미지 저장
 
 아래와 같이 빌드된 Docker image를 저장합니다.
 
