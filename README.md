@@ -46,6 +46,10 @@ Greengrass V1.x에서는 Docker connector를 이용하였고 V2.0에서는 Compo
 
 
 
+### Greengrass CLI
+
+[Greengrass CLI 설치](https://github.com/kyopark2014/iot-greengrass/blob/main/greengrass-cli.md)에 따라 Greengrass CLI 설치을 설치합니다. 
+
 
 ## Reference
 
