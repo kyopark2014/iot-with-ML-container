@@ -51,6 +51,10 @@ Greengrass V1.x에서는 Docker connector를 이용하였고 V2.0에서는 Compo
 [Greengrass CLI 설치](https://github.com/kyopark2014/iot-greengrass/blob/main/greengrass-cli.md)에 따라 Greengrass CLI 설치을 설치합니다. 
 
 
+### Trouble shooting: component 설치 실패
+
+ECR에서 바이너리 다운로드 실패할 경우에 [Docker Permission](https://github.com/kyopark2014/iot-with-ML-container/blob/main/troubleshooting.md#docker-permission)에 따라 GreengrassV2TokenExchangeRole에 Policy를 추가합니다. 
+
 ## Reference
 
 [Run AWS Lambda functions in Greengrass V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/run-lambda-functions.html)
