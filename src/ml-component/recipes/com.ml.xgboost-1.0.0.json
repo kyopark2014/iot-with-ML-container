@@ -1,0 +1,48 @@
+{
+    "RecipeFormatVersion": "2020-01-25",
+    "ComponentName": "com.ml.xgboost",
+    "ComponentVersion": "1.0.0",
+    "ComponentDescription": "A component that runs a ML docker container from ECR.",
+    "ComponentPublisher": "Amazon",
+    "ComponentDependencies": {
+        "aws.greengrass.DockerApplicationManager": {
+            "VersionRequirement": "~2.0.0"
+        },
+        "aws.greengrass.TokenExchangeService": {
+            "VersionRequirement": "~2.0.0"
+        }
+    },
+    "ComponentConfiguration": {
+        "DefaultConfiguration": {
+            "accessControl": {
+                "aws.greengrass.ipc.pubsub": {
+                    "com.ml.xgboost:pubsub:1": {
+                        "policyDescription": "Allows access to publish to all topics.",
+                        "operations": [
+                            "aws.greengrass#SubscribeToTopic"
+                        ],
+                        "resources": [
+                            "*"
+                        ]
+                    }
+                }
+            }
+        }
+    },
+    "Manifests": [
+        {
+            "Platform": {
+                "os": "all"
+            },
+            "Lifecycle": {
+                "Install": "pip3 install awsiotsdk",
+                "Run": "docker run 677146750822.dkr.ecr.ap-northeast-2.amazonaws.com/cdk-hnb659fds-container-assets-677146750822-ap-northeast-2:6421efde9b674e2b82dfb41d8a696fb780120467d9b97426c0c94cfe88e723db"
+            },
+            "Artifacts": [
+                {
+                  "URI": "docker:677146750822.dkr.ecr.ap-northeast-2.amazonaws.com/cdk-hnb659fds-container-assets-677146750822-ap-northeast-2:6421efde9b674e2b82dfb41d8a696fb780120467d9b97426c0c94cfe88e723db"
+                }
+            ]
+        }
+    ]
+}
