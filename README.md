@@ -44,16 +44,46 @@ Greengrass에서는 Lambda를 Component로 등록하여 설치 및 배포환경�
 
 Greengrass V1.x에서는 Docker connector를 이용하였고 V2.0에서는 Component의 Recipy의 environment variable에 정의된 registry에서 Docker Component를 생성하게 됩니다.
 
-
+## Prerequisition
 
 ### Greengrass CLI
 
 [Greengrass CLI 설치](https://github.com/kyopark2014/iot-greengrass/blob/main/greengrass-cli.md)에 따라 Greengrass CLI 설치을 설치합니다. 
 
+### Docker Permission 
 
-### Trouble shooting: component 설치 실패
+아래와 같이 Docker 이미지를 구동하기 위하여 ggc_user에 docker를 추가합니다. 
 
-ECR에서 바이너리 다운로드 실패할 경우에 [Docker Permission](https://github.com/kyopark2014/iot-with-ML-container/blob/main/troubleshooting.md#docker-permission)에 따라 GreengrassV2TokenExchangeRole에 Policy를 추가합니다. 
+```java
+sudo usermod -aG docker ggc_user
+```
+
+### ECR Policy Insertion
+
+GreengrassV2TokenExchangeRole에 Policy에 아래를 추가합니다. 
+
+```java
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ecr:CreateRepository",
+                "ecr:GetDownloadUrlForLayer",
+                "ecr:BatchGetImage",
+                "ecr:CompleteLayerUpload",
+                "ecr:GetAuthorizationToken",
+                "ecr:UploadLayerPart",
+                "ecr:InitiateLayerUpload",
+                "ecr:BatchCheckLayerAvailability",
+                "ecr:PutImage"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+```
 
 ## Reference
 
