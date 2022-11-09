@@ -58,3 +58,5 @@ Greengrass V1.x에서는 Docker connector를 이용하였고 V2.0에서는 Compo
 [How to configure optimized machine learning inference using the AWS Management Console - V1](https://docs.aws.amazon.com/greengrass/v1/developerguide/ml-dlc-console.html)
 
 [AWS CDK: Deploy Lambda with Docker](https://sbstjn.com/blog/aws-cdk-lambda-docker-container-example/)
+
+[Amazon S3 이미지에서 도커 컨테이너 실행](https://docs.aws.amazon.com/ko_kr/greengrass/v2/developerguide/run-docker-container.html#run-docker-container-s3)
