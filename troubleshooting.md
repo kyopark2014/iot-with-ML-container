@@ -40,6 +40,15 @@ Caused by: software.amazon.awssdk.services.ecr.model.EcrException: User: arn:aws
 }
 ```
 
+## Docker Daemon Permission Denied
+
+```java
+2022-11-09T16:14:22.422Z [INFO] (pool-2-thread-22) com.ml.xgboost: shell-runner-start. {scriptName=services.com.ml.xgboost.lifecycle.Run, serviceName=com.ml.xgboost, currentState=STARTING, command=["docker run 677146750822.dkr.ecr.ap-northeast-2.amazonaws.com/cdk-hnb659fds-con..."]}
+2022-11-09T16:14:22.446Z [WARN] (Copier) com.ml.xgboost: stderr. docker: Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Post "http://%2Fvar%2Frun%2Fdocker.sock/v1.24/containers/create": dial unix /var/run/docker.sock: connect: permission denied.. {scriptName=services.com.ml.xgboost.lifecycle.Run, serviceName=com.ml.xgboost, currentState=RUNNING}
+```
+
+
+
 ## Reference 
 
 [Give you Cloud9 user permissions to access ECR](https://catalog.us-east-1.prod.workshops.aws/workshops/5ecc2416-f956-4273-b729-d0d30556013f/en-US/chapter8-containers/10-step1#give-you-cloud9-user-permissions-to-access-ecr)
