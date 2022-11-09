@@ -85,6 +85,21 @@ GreengrassV2TokenExchangeRole에 Policy에 아래와 같은 ECR Policy를 추가
 }
 ```
 
+## Deploy ML XGBoost
+
+[Greengrass Console]()에서 
+            
+            https://github.com/kyopark2014/iot-with-ML-container/blob/main/src/ml-component/recipes/com.ml.xgboost-1.0.0.json
+
+```java
+$ sudo /greengrass/v2/bin/greengrass-cli component list
+
+Component Name: com.ml.xgboost
+    Version: 1.0.0
+    State: RUNNING
+    Configuration: {"accessControl":{"aws.greengrass.ipc.pubsub":{"com.ml.xgboost:pubsub:1":{"operations":["aws.greengrass#SubscribeToTopic"],"policyDescription":"Allows access to publish to all topics.","resources":["*"]}}}}
+```    
+
 ## Reference
 
 [Run AWS Lambda functions in Greengrass V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/run-lambda-functions.html)
