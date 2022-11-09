@@ -22,3 +22,5 @@ The `cdk.json` file tells the CDK Toolkit how to execute your app.
 [class DockerImageAsset (construct)](https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_aws-ecr-assets.DockerImageAsset.html)
 
 [@aws-cdk/aws-ecr module](https://docs.aws.amazon.com/cdk/api/v1/docs/aws-ecr-readme.html)
+
+[AWS IoT Greengrass OnBoarding and Data Logging using AWS CDK](https://github.com/aws-samples/aws-iot-greengrass-v2-using-aws-cdk)
