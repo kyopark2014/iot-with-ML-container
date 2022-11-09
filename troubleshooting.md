@@ -39,3 +39,7 @@ Caused by: software.amazon.awssdk.services.ecr.model.EcrException: User: arn:aws
     ]
 }
 ```
+
+## Reference 
+
+[Give you Cloud9 user permissions to access ECR](https://catalog.us-east-1.prod.workshops.aws/workshops/5ecc2416-f956-4273-b729-d0d30556013f/en-US/chapter8-containers/10-step1#give-you-cloud9-user-permissions-to-access-ecr)
