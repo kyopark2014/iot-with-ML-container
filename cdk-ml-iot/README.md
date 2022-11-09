@@ -26,3 +26,7 @@ The `cdk.json` file tells the CDK Toolkit how to execute your app.
 [AWS IoT Greengrass OnBoarding and Data Logging using AWS CDK](https://github.com/aws-samples/aws-iot-greengrass-v2-using-aws-cdk)
 
 [AWS IoT Greengrass resource type reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/AWS_Greengrass.html)
+
+[class CfnDeployment (construct)](https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_aws-greengrassv2.CfnDeployment.html)
+
+[class CfnComponentVersion (construct)](https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_aws-greengrassv2.CfnComponentVersion.html)
