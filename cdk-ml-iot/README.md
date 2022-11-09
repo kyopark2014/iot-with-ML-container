@@ -16,6 +16,9 @@ The `cdk.json` file tells the CDK Toolkit how to execute your app.
 
 ## Reference
 
+
+[AWS CDK Docker Image Assets](https://docs.aws.amazon.com/cdk/api/v1/docs/aws-ecr-assets-readme.html)
+
 [class DockerImageAsset (construct)](https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_aws-ecr-assets.DockerImageAsset.html)
 
 [@aws-cdk/aws-ecr module](https://docs.aws.amazon.com/cdk/api/v1/docs/aws-ecr-readme.html)
