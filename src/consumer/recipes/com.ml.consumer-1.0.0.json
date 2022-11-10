@@ -1,6 +1,6 @@
 {
     "RecipeFormatVersion": "2020-01-25",
-    "ComponentName": "com.example.Publisher",
+    "ComponentName": "com.ml.consumer",
     "ComponentVersion": "1.0.0",
     "ComponentDescription": "A component that publishes messages.",
     "ComponentPublisher": "Amazon",
@@ -8,7 +8,7 @@
       "DefaultConfiguration": {
         "accessControl": {
           "aws.greengrass.ipc.pubsub": {
-            "com.example.Publisher:pubsub:1": {
+            "com.ml.consumer:pubsub:1": {
               "policyDescription": "Allows access to publish to all topics.",
               "operations": [
                 "aws.greengrass#PublishToTopic"
