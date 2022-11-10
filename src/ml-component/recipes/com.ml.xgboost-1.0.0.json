@@ -35,7 +35,6 @@
                 "os": "all"
             },
             "Lifecycle": {
-                "Install": "pip3 install awsiotsdk",
                 "Run": "docker run 677146750822.dkr.ecr.ap-northeast-2.amazonaws.com/cdk-hnb659fds-container-assets-677146750822-ap-northeast-2:6421efde9b674e2b82dfb41d8a696fb780120467d9b97426c0c94cfe88e723db"
             },
             "Artifacts": [
