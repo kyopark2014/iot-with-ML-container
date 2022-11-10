@@ -24,8 +24,8 @@
     "Manifests": [
       {
         "Lifecycle": {
-          "Install": "pip3 install awsiotsdk numpy",
-          "Run": "python3 -u {artifacts:path}/example_publisher.py"
+          "Install": "pip3 install awsiotsdk pandas",
+          "Run": "python3 -u {artifacts:path}/consumer.py"
         }
       }
     ]

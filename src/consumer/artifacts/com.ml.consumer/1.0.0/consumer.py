@@ -1,9 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: MIT-0
-import numpy as np
 import pandas as pd
 import time
-from xgboost import XGBRegressor
 import datetime
 import json
 import awsiot.greengrasscoreipc
@@ -49,13 +47,6 @@ def load_event():
     return event
 
 def main():
-    # Version check
-    print('np version: ', np.__version__)
-    print('pandas version: ', pd.__version__)
-
-    import xgboost as xgb
-    print('xgb version: ', xgb.__version__)
-
     start = time.time()
 
     # load samples
