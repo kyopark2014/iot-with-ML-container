@@ -52,7 +52,7 @@ Greengrass V1.x에서는 Docker connector를 이용하였고 V2.0에서는 Compo
 
 ### Greengrass CLI 설치
 
-필요시 Greengrass 디바이스에서 디버깅할 수 있도록 [Greengrass CLI 설치](https://github.com/kyopark2014/iot-greengrass/blob/main/greengrass-cli.md)에 따라 [Grrengrass Console](https://ap-northeast-2.console.aws.amazon.com/iot/home?region=ap-northeast-2#/greengrass/v2/components/public)에서 Greengrass CLI인 aws.greengrass.Cli를 설치합니다. 
+필요시 Greengrass 디바이스에서 디버깅할 수 있도록 [Greengrass CLI 설치](https://github.com/kyopark2014/iot-greengrass/blob/main/greengrass-cli.md)에 따라 [Greengrass Console](https://ap-northeast-2.console.aws.amazon.com/iot/home?region=ap-northeast-2#/greengrass/v2/components/public)에서 Greengrass CLI인 aws.greengrass.Cli를 설치합니다. 
 
 ### Docker Group User 등록
 
