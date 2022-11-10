@@ -13,6 +13,24 @@ The `cdk.json` file tells the CDK Toolkit how to execute your app.
 * `cdk diff`        compare deployed stack with current state
 * `cdk synth`       emits the synthesized CloudFormation template
 
+
+
+## Extras for Greengrass
+
+아래는 추후 사용할 가능성이 있는 CDK 코드입니다.
+
+Acount ID 확인합니다.
+
+```java
+    const accountId = cdk.Stack.of(this).account
+    new cdk.CfnOutput(this, 'accountId', {
+      value: accountId,
+      description: 'accountId',
+    });
+```
+
+IoT용 Repository를 만들어 deployment를 복사합니다. 
+
 ```java
     const repo = new ecr.Repository(this, 'IoTRepository', {
       repositoryName: 'iot_repository',
