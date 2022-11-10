@@ -9,6 +9,7 @@ The `cdk.json` file tells the CDK Toolkit how to execute your app.
 CDK V2를 설치합니다.
 
 ```java
+cd cdk-ml-iot
 npm install aws-cdk-lib
 ```
 
