@@ -52,7 +52,7 @@ def main():
 
     # request inference
     # while True:
-    publishEvent(event)
+    # publishEvent(event)
     # time.sleep(5)
     #print(results['statusCode'])
     #print(results['body'])
