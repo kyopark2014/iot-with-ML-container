@@ -47,8 +47,6 @@ def load_event():
     return event
 
 def main():
-    start = time.time()
-
     # load samples
     event = load_event()
 
@@ -59,7 +57,8 @@ def main():
     #print(results['statusCode'])
     #print(results['body'])
 
-    print('Elapsed time: %0.2fs' % (time.time()-start))   
+    # print('Elapsed time: %0.2fs' % (time.time()-start))   
+    print('event=', event)
 
 if __name__ == '__main__':
     main()
