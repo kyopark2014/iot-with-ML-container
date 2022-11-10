@@ -12,7 +12,7 @@ from awsiot.greengrasscoreipc.model import (
 )
 
 TIMEOUT = 10
-ipc_client = awsiot.greengrasscoreipc.connect()
+#ipc_client = awsiot.greengrasscoreipc.connect()
 topic = "local/topic"
 
 def publishEvent(body):
