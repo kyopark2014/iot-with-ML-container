@@ -13,6 +13,21 @@ The `cdk.json` file tells the CDK Toolkit how to execute your app.
 * `cdk diff`        compare deployed stack with current state
 * `cdk synth`       emits the synthesized CloudFormation template
 
+```java
+    const repo = new ecr.Repository(this, 'IoTRepository', {
+      repositoryName: 'iot_repository',
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
+      imageTagMutability: ecr.TagMutability.IMMUTABLE
+    });
+    
+    new ecrDeploy.ECRDeployment(this, 'DeployDockerImage', {
+      src: new ecrDeploy.DockerImageName(asset.imageUri),
+      dest: new ecrDeploy.DockerImageName(`${repo.repositoryUri}:latest`),
+    }); 
+
+    repo.addLifecycleRule({ tagPrefixList: ['dev'], maxImageCount: 9999 });
+    repo.addLifecycleRule({ maxImageAge: cdk.Duration.days(30) });
+```    
 
 ## Reference
 
