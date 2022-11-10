@@ -89,6 +89,14 @@ GreengrassV2TokenExchangeRole에 Policy에 아래와 같은 ECR Policy를 추가
 }
 ```
 
+
+### Greengrass Commands와 Memo
+
+유용한 [Greengrass 명령어와 중요한 메모들](https://github.com/kyopark2014/iot-greengrass/blob/main/greengrass-commands.md)를 정리하였습니다.
+
+
+
+
 ## Deploy ML XGBoost
 
 [Greengrass Console](https://ap-northeast-2.console.aws.amazon.com/iot/home?region=ap-northeast-2#/greengrass/v2/components)에서 [Create component]를 선택하여, [com.ml.xgboost-1.0.0.json](https://github.com/kyopark2014/iot-with-ML-container/blob/main/src/ml-component/recipes/com.ml.xgboost-1.0.0.json)을 아래와 같이 Recipe에 추가하여 Component를 생성한후 Deployment를 수행합니다. 
