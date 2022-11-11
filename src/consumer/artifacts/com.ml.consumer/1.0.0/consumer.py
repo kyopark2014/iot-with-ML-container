@@ -1,9 +1,8 @@
-# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: MIT-0
 import pandas as pd
 import time
 import datetime
 import json
+import os
 import awsiot.greengrasscoreipc
 from awsiot.greengrasscoreipc.model import (
     PublishToTopicRequest,
@@ -12,7 +11,7 @@ from awsiot.greengrasscoreipc.model import (
 )
 
 TIMEOUT = 10
-#ipc_client = awsiot.greengrasscoreipc.connect()
+ipc_client = awsiot.greengrasscoreipc.connect()
 topic = "local/topic"
 
 def publishEvent(body):
@@ -33,9 +32,11 @@ def publishEvent(body):
 
     print(f"publish: {message_json}")
 
-
 def load_event():
-    json_file = pd.read_json('samples.json')
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))  
+    print('BASE_DIR = ', BASE_DIR)
+        
+    json_file = pd.read_json(BASE_DIR+'/samples.json')
     json_data = json_file.to_json(orient='records')
 
     event = {
@@ -52,7 +53,7 @@ def main():
 
     # request inference
     # while True:
-    # publishEvent(event)
+    publishEvent(event)
     # time.sleep(5)
     #print(results['statusCode'])
     #print(results['body'])
@@ -62,4 +63,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
