@@ -70,7 +70,7 @@ sudo usermod -aG docker ggc_user
 
 ### ECR Policy 
 
-GreengrassV2TokenExchangeRole에 Policy에 아래와 같은 ECR Policy를 추가합니다. 
+ECR privite repository를 사용할 경우에 GreengrassV2TokenExchangeRole에 Policy에 아래와 같은 ECR Policy를 추가합니다. 
 
 ```java
 {
