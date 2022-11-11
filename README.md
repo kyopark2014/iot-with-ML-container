@@ -79,15 +79,9 @@ GreengrassV2TokenExchangeRole에 Policy에 아래와 같은 ECR Policy를 추가
         {
             "Effect": "Allow",
             "Action": [
-                "ecr:CreateRepository",
-                "ecr:GetDownloadUrlForLayer",
-                "ecr:BatchGetImage",
-                "ecr:CompleteLayerUpload",
                 "ecr:GetAuthorizationToken",
-                "ecr:UploadLayerPart",
-                "ecr:InitiateLayerUpload",
-                "ecr:BatchCheckLayerAvailability",
-                "ecr:PutImage"
+                "ecr:BatchGetImage",
+                "ecr:GetDownloadUrlForLayer"
             ],
             "Resource": "*"
         }
