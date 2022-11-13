@@ -47,19 +47,17 @@ def load_event():
 
     return event
 
-def main():
-    # load samples
-    event = load_event()
+def main():    
+    event = load_event()   # load samples
 
     # request inference
-    # while True:
-    publishEvent(event)
-    # time.sleep(5)
-    #print(results['statusCode'])
-    #print(results['body'])
+    while True:
+        publishEvent(event)        
+        #print(results['statusCode'])
+        #print(results['body'])
 
-    # print('Elapsed time: %0.2fs' % (time.time()-start))   
-    print('event=', event)
+        print('event=', event)
+        time.sleep(5)
 
 if __name__ == '__main__':
     main()

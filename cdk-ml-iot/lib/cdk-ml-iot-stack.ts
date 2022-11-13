@@ -26,53 +26,55 @@ export class CdkMlIotStack extends cdk.Stack {
     const recipe = `{
       "RecipeFormatVersion": "2020-01-25",
       "ComponentName": "com.ml.xgboost",
-      "ComponentVersion": "`+version+`",
+      "ComponentVersion": "${version}",
       "ComponentDescription": "A component that runs a ML docker container from ECR.",
       "ComponentPublisher": "Amazon",
       "ComponentDependencies": {
-          "aws.greengrass.DockerApplicationManager": {
-              "VersionRequirement": "~2.0.0"
-          },
-          "aws.greengrass.TokenExchangeService": {
-              "VersionRequirement": "~2.0.0"
-          }
+        "aws.greengrass.DockerApplicationManager": {
+          "VersionRequirement": "~2.0.0"
+        },
+        "aws.greengrass.TokenExchangeService": {
+          "VersionRequirement": "~2.0.0"
+        }
       },
       "ComponentConfiguration": {
-          "DefaultConfiguration": {
-              "accessControl": {
-                  "aws.greengrass.ipc.pubsub": {
-                      "com.ml.xgboost:pubsub:1": {
-                          "policyDescription": "Allows access to publish to all topics.",
-                          "operations": [
-                              "aws.greengrass#SubscribeToTopic"
-                          ],
-                          "resources": [
-                              "*"
-                          ]
-                      }
-                  }
+        "DefaultConfiguration": {
+          "accessControl": {
+            "aws.greengrass.ipc.pubsub": {
+              "com.ml.xgboost:pubsub:1": {
+                "policyDescription": "Allows access to subscribe to all topics.",
+                "operations": [
+                  "aws.greengrass#SubscribeToTopic"
+                ],
+                "resources": [
+                  "*"
+                ]
               }
+            }
           }
+        }
       },
       "Manifests": [
-          {
-              "Platform": {
-                  "os": "all"
-              },
-              "Lifecycle": {
-                  "Run": "docker run `+imageUri+`"
-              },
-              "Artifacts": [
-                  {
-                    "URI": "docker:`+imageUri+`"
-                  }
-              ]
-          }
+        {
+          "Platform": {
+            "os": "all"
+          },
+          "Lifecycle": {
+            "Run": "docker run ${imageUri} -v \$AWS_GG_NUCLEUS_DOMAIN_SOCKET_FILEPATH_FOR_COMPONENT:\$AWS_GG_NUCLEUS_DOMAIN_SOCKET_FILEPATH_FOR_COMPONENT -e SVCUID -e AWS_GG_NUCLEUS_DOMAIN_SOCKET_FILEPATH_FOR_COMPONENT"
+          },
+          "Artifacts": [
+            {
+              "URI": "docker:${imageUri}"
+            }
+          ]
+        }
       ]
     }`
+
     const cfnComponentVersion = new greengrassv2.CfnComponentVersion(this, 'MyCfnComponentVersion', {
       inlineRecipe: recipe,
     }); 
+    // cfnComponentVersion.applyRemovalPolicy(cdk.RemovalPolicy.DESTROY)
 
     // deployments
     const cfnDeployment = new greengrassv2.CfnDeployment(this, 'MyCfnDeployment', {
@@ -94,5 +96,6 @@ export class CdkMlIotStack extends cdk.Stack {
         failureHandlingPolicy: 'ROLLBACK',  // ROLLBACK | DO_NOTHING
       },
     }); 
+    // cfnDeployment.applyRemovalPolicy(cdk.RemovalPolicy.DESTROY)
   }
 }
