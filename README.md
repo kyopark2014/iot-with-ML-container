@@ -62,11 +62,7 @@ sudo /greengrass/v2/bin/greengrass-cli component list
 
 ### Docker Group User 등록
 
-아래와 같이 Docker 이미지를 구동하기 위하여 ggc_user에 docker를 추가합니다. 
-
-```java
-sudo usermod -aG docker ggc_user
-```
+Docker component를 등록하여 사용하기 위해서는 [Docker Container](https://github.com/kyopark2014/iot-greengrass/blob/main/greengrass-commands.md#docker-container)에 따라 사용자를 group user로 등록하여야 합니다. Core device마다 1회 수행합니다. 
 
 ### ECR Policy 
 
