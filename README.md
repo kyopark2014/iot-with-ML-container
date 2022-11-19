@@ -42,7 +42,7 @@ Greengrass에서는 Lambda를 Component로 등록하여 설치 및 배포환경�
 5) 이후 머신러닝 알고리즘이 업데이트 되면, Lambda를 통해 기능검증을 하여 충분히 검증된다믐에, AWS Greeengrass를 통해 다수의 다른 디바이스에 편리하게 배포할 수 있습니다. 
 
 
-Greengrass V1.x에서는 Docker connector를 이용하였고 V2.0에서는 Component의 Recipy의 environment variable에 정의된 registry에서 Docker Component를 생성하게 됩니다.
+Greengrass V1.x에서는 Docker connector를 이용하였고 V2.0에서는 Component의 Recipy의 environment variable에 정의된 registry에서 Docker Component를 생성하게 됩니다. 여기서는 Greengrass V2에 기반하여 추론용 Docker Image를 Greengrass에 container component로 배포합니다.
 
 
 
