@@ -62,6 +62,34 @@ Greengrass V1.x에서는 Docker connector를 이용하였고 V2.0에서는 Compo
 Cloud9에서는 [EBS 크기 변경](https://github.com/kyopark2014/technical-summary/blob/main/resize.md)에 따라 EBS 크기를 확대합니다. 
 
 
+## Greengrass에 추론을 수행하기 위한 Interface 구성
+
+Greengrass에서 사용하려고 하는 머신러닝 알고리즘은 Lambda에서 사용하였던 inference.py 입니다. Lambdad의 경우에 입력의 형태가 event 이므로, interface.py를 이용해 다른 component가 요청한 추론을 event로 변환하고, 그 결과를 다시 다른 component로 전송하여야 합니다.
+
+Greengrass의 componnet들은 IPC 방식으로 통신을 하므로, interface.py에서는 IPC Client V2을 활용하여 Necleus와 IPC session을 생성하고, 다른 추론을 원하는 Component가 publish 방식으로 전달한 요청(Request)을 event 포맷으로 변경하여, inference.py를 이용해 추론을 수행합니다. 여기서는 추론을 요청하는 component인 com.ml.consumer로부터 'local/topic'이라는 topic 이름으로 request를 stream event를 통해 받아서 처리하는 구조입니다. 
+
+```python
+def on_stream_event(event: SubscriptionResponseMessage) -> None:
+    try:
+        message = str(event.binary_message.message, 'utf-8')
+        topic = event.binary_message.context.topic
+        logger.debug('Received new message on topic %s: %s' % (topic, message))
+
+        # Inference
+        json_data = json.loads(message) # json decoding        
+        results = handler(json_data,"")  
+        
+        # results
+        logger.debug('result: ' + json.dumps(results['body']))
+
+    except:
+        traceback.print_exc()
+```        
+
+## CDK로 Component 배포하기 
+
+[CDK로 머신러닝 알고리즘 추론을 IoT Greengrass에 배포하기](https://github.com/kyopark2014/iot-with-ML-container/tree/main/cdk-ml-iot)에 따라 CDK로 추론을 수행하는 Container component와 추론을 요청하는 local compnent를 생성합니다. 
+
 
 
 
