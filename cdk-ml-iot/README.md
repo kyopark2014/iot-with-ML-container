@@ -20,36 +20,36 @@ npm install path
 ```
 
 
-## Extras for Greengrass
+## 참고자료
 
 아래는 추후 사용할 가능성이 있는 CDK 코드입니다.
 
 Acount ID 확인합니다.
 
 ```java
-    const accountId = cdk.Stack.of(this).account
-    new cdk.CfnOutput(this, 'accountId', {
-      value: accountId,
-      description: 'accountId',
-    });
+const accountId = cdk.Stack.of(this).account
+new cdk.CfnOutput(this, 'accountId', {
+  value: accountId,
+  description: 'accountId',
+});
 ```
 
 IoT용 Repository를 만들어 deployment를 복사합니다. 
 
 ```java
-    const repo = new ecr.Repository(this, 'IoTRepository', {
-      repositoryName: 'iot_repository',
-      removalPolicy: cdk.RemovalPolicy.DESTROY,
-      imageTagMutability: ecr.TagMutability.IMMUTABLE
-    });
-    
-    new ecrDeploy.ECRDeployment(this, 'DeployDockerImage', {
-      src: new ecrDeploy.DockerImageName(asset.imageUri),
-      dest: new ecrDeploy.DockerImageName(`${repo.repositoryUri}:latest`),
-    }); 
+const repo = new ecr.Repository(this, 'IoTRepository', {
+  repositoryName: 'iot_repository',
+  removalPolicy: cdk.RemovalPolicy.DESTROY,
+  imageTagMutability: ecr.TagMutability.IMMUTABLE
+});
 
-    repo.addLifecycleRule({ tagPrefixList: ['dev'], maxImageCount: 9999 });
-    repo.addLifecycleRule({ maxImageAge: cdk.Duration.days(30) });
+new ecrDeploy.ECRDeployment(this, 'DeployDockerImage', {
+  src: new ecrDeploy.DockerImageName(asset.imageUri),
+  dest: new ecrDeploy.DockerImageName(`${repo.repositoryUri}:latest`),
+}); 
+
+repo.addLifecycleRule({ tagPrefixList: ['dev'], maxImageCount: 9999 });
+repo.addLifecycleRule({ maxImageAge: cdk.Duration.days(30) });
 ```    
 
 ## Reference
