@@ -1,8 +1,6 @@
-# CDK Deployment
+# CDK로 머신러닝 알고리즘 추론을 IoT Greengrass에 배포하기 
 
-This is a blank project for CDK development with TypeScript.
-
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+여기에서는 CDK를 이용해 머신러닝 알고리즘 추론을 IoT Greengrass에 배포하는 방법에 대해 설명합니다. 
 
 ## 필요한 라이브러리 설치
 
@@ -19,6 +17,192 @@ Path 라이브러리를 설치합니다.
 npm install path
 ```
 
+## 추론용 Docker Image로 Container Component 생성
+
+아래와 같이 ml-container 폴더에 있는 Dockerfile과 추론 소스인 inference.py을 이용하여 Docker Image를 생성하여, ECR로 복사하여 Artifact를 준비하고, Recipe로 준비합니다. 
+
+```java
+export class containerComponent extends cdk.Stack {
+  constructor(scope: Construct, id: string, version: string, props?: cdk.StackProps) {    
+    super(scope, id, props);
+
+    const asset = new DockerImageAsset(this, 'BuildImage', {
+      directory: path.join(__dirname, '../../src/ml-container'),
+    })
+
+    const imageUri = asset.imageUri
+    new cdk.CfnOutput(this, 'ImageUri', {
+      value: imageUri,
+      description: 'Image Uri',
+    }); 
+
+    // recipe of component - com.ml.xgboost
+    const recipe = `{
+      "RecipeFormatVersion": "2020-01-25",
+      "ComponentName": "com.ml.xgboost",
+      "ComponentVersion": "${version}",
+      "ComponentDescription": "A component that runs a ML docker container from ECR.",
+      "ComponentPublisher": "Amazon",
+      "ComponentDependencies": {
+        "aws.greengrass.DockerApplicationManager": {
+          "VersionRequirement": "~2.0.0"
+        },
+        "aws.greengrass.TokenExchangeService": {
+          "VersionRequirement": "~2.0.0"
+        }
+      },
+      "ComponentConfiguration": {
+        "DefaultConfiguration": {
+          "accessControl": {
+            "aws.greengrass.ipc.pubsub": {
+              "com.ml.xgboost:pubsub:1": {
+                "policyDescription": "Allows access to subscribe to all topics.",
+                "operations": [
+                  "aws.greengrass#SubscribeToTopic"
+                ],
+                "resources": [
+                  "*"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "Manifests": [
+        {
+          "Platform": {
+            "os": "all"
+          },
+          "Lifecycle": {           
+            "Run":"docker run --rm -v /greengrass/v2/ipc.socket:/greengrass/v2/ipc.socket -e AWS_CONTAINER_AUTHORIZATION_TOKEN=$AWS_CONTAINER_AUTHORIZATION_TOKEN -e SVCUID=$SVCUID -e AWS_GG_NUCLEUS_DOMAIN_SOCKET_FILEPATH_FOR_COMPONENT=/greengrass/v2/ipc.socket -e AWS_CONTAINER_CREDENTIALS_FULL_URI=$AWS_CONTAINER_CREDENTIALS_FULL_URI ${imageUri} --network=host"
+          },
+          "Artifacts": [
+            {
+              "URI": "docker:${imageUri}"
+            }
+          ]
+        }
+      ]
+    }`
+
+    const cfnComponentVersion = new greengrassv2.CfnComponentVersion(this, 'MyCfnComponentVersion_Container', {
+      inlineRecipe: recipe,
+    }); 
+  }
+}
+```
+
+## 추론을 수행하는 com.ml.consumer 생성
+
+실제 추론을 원하는 Component는 아래와 같이 간단하게 local component로 생성할 수 있습니다.
+
+```java
+export class localComponent extends cdk.Stack {
+  constructor(scope: Construct, id: string, version: string, bucketName: string, props?: cdk.StackProps) {    
+    super(scope, id, props);
+
+    // recipe of component - com.ml.consumer
+    const recipe_consumer = `{
+      "RecipeFormatVersion": "2020-01-25",
+      "ComponentName": "com.ml.consumer",
+      "ComponentVersion": "${version}",
+      "ComponentDescription": "A component that consumes the API.",
+      "ComponentPublisher": "Amazon",
+      "ComponentConfiguration": {
+        "DefaultConfiguration": {
+          "accessControl": {
+            "aws.greengrass.ipc.pubsub": {
+              "com.ml.consumer:pubsub:1": {
+                "policyDescription": "Allows access to publish to all topics.",
+                "operations": [
+                  "aws.greengrass#PublishToTopic"
+                ],
+                "resources": [
+                  "*"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "Manifests": [{
+        "Platform": {
+          "os": "linux"
+        },
+        "Lifecycle": {
+          "Install": "pip3 install awsiotsdk pandas",
+          "Run": "python3 -u {artifacts:path}/consumer.py"
+        },
+        "Artifacts": [
+          {
+            "URI": "${'s3://'+bucketName}/consumer/artifacts/com.ml.consumer/1.0.0/consumer.py"
+          },
+          {
+            "URI": "${'s3://'+bucketName}/consumer/artifacts/com.ml.consumer/1.0.0/samples.json"
+          }
+        ]
+      }]
+    }`
+
+    // recipe of component - com.ml.consumer
+    new greengrassv2.CfnComponentVersion(this, 'MyCfnComponentVersion-Consumer', {
+      inlineRecipe: recipe_consumer,
+    });        
+  }
+}
+```
+
+## 추론을 위한 Container component의 배포
+
+아래와 같이 Greengrass에 추론용 Component들을 배포할 수 있습니다. 
+
+```java
+export class componentDeployment extends cdk.Stack {
+  constructor(scope: Construct, id: string, version_consumer: string, version_xgboost: string, accountId: string, deviceName: string, props?: cdk.StackProps) {    
+    super(scope, id, props);
+
+    // deployments
+    const cfnDeployment = new greengrassv2.CfnDeployment(this, 'MyCfnDeployment', {
+      targetArn: `arn:aws:iot:ap-northeast-2:`+accountId+`:thing/`+deviceName,    
+      components: {
+        "com.ml.consumer": {
+          componentVersion: version_consumer, 
+        }, 
+        "com.ml.xgboost": {
+          componentVersion: version_xgboost, 
+        },  
+        "aws.greengrass.Cli": {
+          componentVersion: "2.9.0", 
+        },
+        "aws.greengrass.LegacySubscriptionRouter": {
+          componentVersion: "2.1.8", 
+          configurationUpdate: {
+            merge: `{
+              "subscriptions": {
+                "com.ml.consumer": {
+                  "id": "Greengrass_Container_Consumer",
+                  "source": "component:com.ml.consumer",
+                  "subject": "local/topic",
+                  "target": "component:com.ml.xgboost"   
+                }
+              }
+            }`,    // target: cloud or lambda component name(component:com.ml.HelloWorldLambda) or ARN of a Lambda function
+            reset: [],
+          }, 
+        } 
+      },
+      deploymentName: 'component-deployment',
+      deploymentPolicies: {
+        componentUpdatePolicy: {
+          action: 'NOTIFY_COMPONENTS', // NOTIFY_COMPONENTS | SKIP_NOTIFY_COMPONENTS
+          timeoutInSeconds: 60,
+        },
+        failureHandlingPolicy: 'ROLLBACK',  // ROLLBACK | DO_NOTHING
+      },
+    });   
+  }
+}
+```
 
 ## 참고자료
 
