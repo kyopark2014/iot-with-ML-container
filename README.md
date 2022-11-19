@@ -93,10 +93,49 @@ def on_stream_event(event: SubscriptionResponseMessage) -> None:
 
 
 
+## 배포 결과
 
+### 추론용 Component의 배포
 
+아래와 같이 Greengrass CLI를 이용하여 배포된 Component를 확인합니다. 
 
+```java
+sudo /greengrass/v2/bin/greengrass-cli component list
+```
 
+아래와 같이 com.ml.consumer와 com.ml.xgboost가 배포되었습니다. 
+
+```java
+Nov 19, 2022 1:26:07 PM software.amazon.awssdk.eventstreamrpc.EventStreamRPCConnection$1 onConnectionSetup
+INFO: Socket connection /greengrass/v2/ipc.socket:8033 to server result [AWS_ERROR_SUCCESS]
+Nov 19, 2022 1:26:08 PM software.amazon.awssdk.eventstreamrpc.EventStreamRPCConnection$1 onProtocolMessage
+INFO: Connection established with event stream RPC server
+Components currently running in Greengrass:
+
+Component Name: com.ml.consumer
+    Version: 1.0.0
+    State: RUNNING
+    Configuration: {"accessControl":{"aws.greengrass.ipc.pubsub":{"com.ml.consumer:pubsub:1":{"operations":["aws.greengrass#PublishToTopic"],"policyDescription":"Allows access to publish to all topics.","resources":["*"]}}}}
+Component Name: com.ml.xgboost
+    Version: 1.0.2
+    State: RUNNING
+    Configuration: {"accessControl":{"aws.greengrass.ipc.pubsub":{"com.ml.xgboost:pubsub:1":{"operations":["aws.greengrass#SubscribeToTopic"],"policyDescription":"Allows access to subscribe to all topics.","resources":["*"]}}}}
+```
+
+아래와 같이 "docker ps"로 정상적으로 inference용 Docker Container가 배포되었는것을 확인할 수 있습니다.
+
+```java
+CONTAINER ID   IMAGE                                                                                                                                                                           COMMAND                  CREATED         STATUS         PORTS     NAMES
+1c458928843e   123456789012.dkr.ecr.ap-northeast-2.amazonaws.com/cdk-hnb659fds-container-assets-123456789012-ap-northeast-2:5f39c9f7a2229021f0500caff1bb29c35cd12fbd37bcd2cbe74e2fc30a721a89   "python3 /var/task/x…"   6 minutes ago   Up 5 minutes             nervous_elgamal
+```
+
+[AWS Console의 Component](https://ap-northeast-2.console.aws.amazon.com/iot/home?region=ap-northeast-2#/greengrass/v2/components)에서 아래처럼 생성된 Component에 대한 정보를 확인할 수 있습니다. 
+
+![image](https://user-images.githubusercontent.com/52392004/202870851-15e7fae2-7550-48e1-84d8-013d0c26e3c0.png)
+
+[AWS Console의 Deployment](https://ap-northeast-2.console.aws.amazon.com/iot/home?region=ap-northeast-2#/greengrass/v2/deployments)에서 아래와 같이 배포 상태를 확인할 수 있수 있습니다.
+
+![image](https://user-images.githubusercontent.com/52392004/202870871-f6f404c2-9ce3-4f6e-9f44-8be8fc035879.png)
 
 
 ### Greengrass Commands와 Memo
