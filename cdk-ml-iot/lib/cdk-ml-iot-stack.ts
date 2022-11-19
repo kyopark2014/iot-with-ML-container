@@ -42,7 +42,7 @@ export class CdkMlIotStack extends cdk.Stack {
     });
 
     // create container component - com.ml.xgboost
-    const version_xgboost = "1.0.0"
+    const version_xgboost = "1.0.2"
     new containerComponent(scope, "container-component", version_xgboost)   
 
     // create local component
@@ -204,7 +204,7 @@ export class componentDeployment extends cdk.Stack {
                   "id": "Greengrass_Container_Consumer",
                   "source": "component:com.ml.consumer",
                   "subject": "local/topic",
-                  "target": "component:com.ml.container"   
+                  "target": "component:com.ml.xgboost"   
                 }
               }
             }`,    // target: cloud or lambda component name(component:com.ml.HelloWorldLambda) or ARN of a Lambda function
