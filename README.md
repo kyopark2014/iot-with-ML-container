@@ -44,51 +44,24 @@ Greengrass에서는 Lambda를 Component로 등록하여 설치 및 배포환경�
 
 Greengrass V1.x에서는 Docker connector를 이용하였고 V2.0에서는 Component의 Recipy의 environment variable에 정의된 registry에서 Docker Component를 생성하게 됩니다.
 
-## Greengrass 
-
-### Greengrass Device 준비
-[Greengrass Initialization](https://github.com/kyopark2014/iot-greengrass/blob/main/README.md#greengrass-initialization)에 따라서 디바이스에 Greengrass를 설치하고 Thing을 Core device로 등록합니다. 
 
 
-### Greengrass CLI 설치
 
-필요시 Greengrass 디바이스에서 디버깅할 수 있도록 [Greengrass CLI 설치](https://github.com/kyopark2014/iot-greengrass/blob/main/greengrass-cli.md)에 따라 [Greengrass Console](https://ap-northeast-2.console.aws.amazon.com/iot/home?region=ap-northeast-2#/greengrass/v2/components/public)에서 Greengrass CLI인 aws.greengrass.Cli를 설치합니다. 
+## Preparation
 
-아래 명령어로 CLI에서 component들에 대한 정보 조회가 가능한지 확인합니다. 
+### Greengrass
 
-```java
-sudo /greengrass/v2/bin/greengrass-cli component list
-```
+[Greengrass Preparation](https://github.com/kyopark2014/iot-greengrass/blob/main/greengrass-commands.md#greengrass-preparation)에 따라, Greengrass installer를 다운로드하고, Core 디바이스로 등록합니다.
 
-### Docker Group User 등록
+### Docker Container 
 
-Docker component를 등록하여 사용하기 위해서는 [Docker Container](https://github.com/kyopark2014/iot-greengrass/blob/main/greengrass-commands.md#docker-container)에 따라 사용자를 group user로 등록하여야 합니다. Core device마다 1회 수행합니다. 
+[Docker Container 준비](https://github.com/kyopark2014/iot-greengrass/blob/main/docker-component.md#docker-container-preparation)에 따라, Greengrass에서 Docker container component를 사용하기 위하여 반드시 필요한 사용자 퍼미션을 설정합니다. 
 
-### ECR Policy 
+### Cloud9
 
-ECR privite repository를 사용할 경우에 GreengrassV2TokenExchangeRole에 Policy에 아래와 같은 ECR Policy를 추가합니다. 
-
-```java
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "ecr:GetAuthorizationToken",
-                "ecr:BatchGetImage",
-                "ecr:GetDownloadUrlForLayer"
-            ],
-            "Resource": "*"
-        }
-    ]
-}
-```
+Cloud9에서는 [EBS 크기 변경](https://github.com/kyopark2014/technical-summary/blob/main/resize.md)에 따라 EBS 크기를 확대합니다. 
 
 
-### Greengrass Commands와 Memo
-
-유용한 [Greengrass 명령어와 중요한 메모들](https://github.com/kyopark2014/iot-greengrass/blob/main/greengrass-commands.md)를 정리하였습니다.
 
 
 
@@ -110,6 +83,10 @@ Component Name: com.ml.xgboost
     State: RUNNING
     Configuration: {"accessControl":{"aws.greengrass.ipc.pubsub":{"com.ml.xgboost:pubsub:1":{"operations":["aws.greengrass#SubscribeToTopic"],"policyDescription":"Allows access to publish to all topics.","resources":["*"]}}}}
 ```    
+
+
+
+
 
 ### Greengrass Commands와 Memo
 
