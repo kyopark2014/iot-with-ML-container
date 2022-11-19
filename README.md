@@ -51,7 +51,7 @@ Greengrass V1.x에서는 Docker connector를 이용하였고 V2.0에서는 Compo
 
 ### Greengrass
 
-[Greengrass Preparation](https://github.com/kyopark2014/iot-greengrass/blob/main/greengrass-commands.md#greengrass-preparation)에 따라, Greengrass installer를 다운로드하고, Core 디바이스로 등록합니다.
+[Greengrass 준비](https://github.com/kyopark2014/iot-greengrass/blob/main/greengrass-commands.md#greengrass-preparation)에 따라, Greengrass installer를 다운로드하고, Core 디바이스로 등록합니다.
 
 ### Docker Container 
 
