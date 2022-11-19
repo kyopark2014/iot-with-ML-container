@@ -19,7 +19,7 @@
                     "com.ml.xgboost:pubsub:1": {
                         "policyDescription": "Allows access to publish to all topics.",
                         "operations": [
-                            "aws.greengrass#SubscribeToTopic"
+                            "aws.greengrass#PublishToTopic"
                         ],
                         "resources": [
                             "*"
@@ -34,12 +34,12 @@
             "Platform": {
                 "os": "all"
             },
-            "Lifecycle": {
-                "Run": "docker run 677146750822.dkr.ecr.ap-northeast-2.amazonaws.com/cdk-hnb659fds-container-assets-677146750822-ap-northeast-2:6421efde9b674e2b82dfb41d8a696fb780120467d9b97426c0c94cfe88e723db"
+            "Lifecycle": {           
+                "Run":"docker run --rm -v /greengrass/v2/ipc.socket:/greengrass/v2/ipc.socket -e AWS_CONTAINER_AUTHORIZATION_TOKEN=$AWS_CONTAINER_AUTHORIZATION_TOKEN -e SVCUID=$SVCUID -e AWS_GG_NUCLEUS_DOMAIN_SOCKET_FILEPATH_FOR_COMPONENT=/greengrass/v2/ipc.socket -e AWS_CONTAINER_CREDENTIALS_FULL_URI=$AWS_CONTAINER_CREDENTIALS_FULL_URI [ECR URl] --network=host"
             },
             "Artifacts": [
                 {
-                  "URI": "docker:677146750822.dkr.ecr.ap-northeast-2.amazonaws.com/cdk-hnb659fds-container-assets-677146750822-ap-northeast-2:6421efde9b674e2b82dfb41d8a696fb780120467d9b97426c0c94cfe88e723db"
+                "URI": "docker:[ECR URl]"
                 }
             ]
         }

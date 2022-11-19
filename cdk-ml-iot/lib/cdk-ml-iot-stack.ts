@@ -160,8 +160,8 @@ export class containerComponent extends cdk.Stack {
           "Platform": {
             "os": "all"
           },
-          "Lifecycle": {
-            "Run": "docker run ${imageUri}"
+          "Lifecycle": {           
+            "Run":"docker run --rm -v /greengrass/v2/ipc.socket:/greengrass/v2/ipc.socket -e AWS_CONTAINER_AUTHORIZATION_TOKEN=$AWS_CONTAINER_AUTHORIZATION_TOKEN -e SVCUID=$SVCUID -e AWS_GG_NUCLEUS_DOMAIN_SOCKET_FILEPATH_FOR_COMPONENT=/greengrass/v2/ipc.socket -e AWS_CONTAINER_CREDENTIALS_FULL_URI=$AWS_CONTAINER_CREDENTIALS_FULL_URI ${imageUri} --network=host"
           },
           "Artifacts": [
             {
