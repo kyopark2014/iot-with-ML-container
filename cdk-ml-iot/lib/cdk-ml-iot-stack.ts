@@ -42,11 +42,11 @@ export class CdkMlIotStack extends cdk.Stack {
     });
 
     // create container component - com.ml.xgboost
-    const version_xgboost = "2.0.0"
+    const version_xgboost = "2.5.0"
     new containerComponent(scope, "container-component", version_xgboost)   
 
     // create local component
-    const version_consumer = "1.0.0"
+    const version_consumer = "1.5.0"
     new localComponent(scope, "local-component", version_consumer, s3Bucket.bucketName)  
 
     // deploy components
@@ -72,10 +72,12 @@ export class localComponent extends cdk.Stack {
               "com.ml.consumer:pubsub:1": {
                 "policyDescription": "Allows access to publish to all topics.",
                 "operations": [
-                  "aws.greengrass#PublishToTopic"
+                  "aws.greengrass#PublishToTopic",
+                  "aws.greengrass#SubscribeToTopic"                  
                 ],
                 "resources": [
-                  "*"
+                  "local/inference",
+                  "local/result"
                 ]
               }
             }
@@ -145,10 +147,12 @@ export class containerComponent extends cdk.Stack {
               "com.ml.xgboost:pubsub:1": {
                 "policyDescription": "Allows access to subscribe to all topics.",
                 "operations": [
-                  "aws.greengrass#SubscribeToTopic"
+                  "aws.greengrass#PublishToTopic",
+                  "aws.greengrass#SubscribeToTopic"   
                 ],
                 "resources": [
-                  "*"
+                  "local/inference",
+                  "local/result"
                 ]
               }
             }
@@ -187,30 +191,14 @@ export class componentDeployment extends cdk.Stack {
       targetArn: `arn:aws:iot:ap-northeast-2:`+accountId+`:thing/`+deviceName,    
       components: {
         "com.ml.consumer": {
-          componentVersion: version_consumer, 
+          componentVersion: version_consumer 
         }, 
         "com.ml.xgboost": {
-          componentVersion: version_xgboost, 
+          componentVersion: version_xgboost
         },  
         "aws.greengrass.Cli": {
           componentVersion: "2.9.0", 
-        },
-        "aws.greengrass.LegacySubscriptionRouter": {
-          componentVersion: "2.1.8", 
-          configurationUpdate: {
-            merge: `{
-              "subscriptions": {
-                "com.ml.consumer": {
-                  "id": "Greengrass_Container_Consumer",
-                  "source": "component:com.ml.consumer",
-                  "subject": "local/topic",
-                  "target": "component:com.ml.xgboost"   
-                }
-              }
-            }`,    // target: cloud or lambda component name(component:com.ml.HelloWorldLambda) or ARN of a Lambda function
-            reset: [],
-          }, 
-        } 
+        }
       },
       deploymentName: 'component-deployment',
       deploymentPolicies: {
