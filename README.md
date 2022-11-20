@@ -19,6 +19,10 @@ AWS Greengrass V2는 오픈소스 edge runtime으로 2022년에 re-invtent에서
 
 이와같이 머신러닝 알고리즘을 Greengrass의 컴포넌트로 등록함으로 Lambda의 기능이 Greeengrass가 설치된 디바이스에서 실행되면, 1) 네트워크 연결없이 머신러닝을 활용할 수 있고, 2) 디바이스 숫자가 늘더라도 서버에 영향을 주지 않으며, 3) 추론을 위한 API 호출 비용이 발생하지 않습니다. 또한, Greengrass의 Lambda 컴퍼넌트는 디바이스 종류에 관계없이 동일한 개발 및 배포 환경을 제공하므로, 다수의 다른 디바이스들을 위한 머신러닝 알고리즘의 개발과 배포에 도움을 줍니다. 
 
+아래는 전체적인 Architecture를 설명하고 있습니다. 
+
+![image](https://user-images.githubusercontent.com/52392004/202931624-25f2db2c-9264-4565-a7cf-4e69b82695cd.png)
+
  
 <!--
 여기에서는 AWS Lambda를 IoT 디바이스에서 동작하게 함으로써, 손쉽게 XGBoost 머신러닝 알고리즘을 활용하는 방법에 대해 설명합니다. 
