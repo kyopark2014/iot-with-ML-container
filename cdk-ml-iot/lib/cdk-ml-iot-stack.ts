@@ -42,7 +42,7 @@ export class CdkMlIotStack extends cdk.Stack {
     });
 
     // create container component - com.ml.xgboost
-    const version_xgboost = "1.0.2"
+    const version_xgboost = "2.0.0"
     new containerComponent(scope, "container-component", version_xgboost)   
 
     // create local component

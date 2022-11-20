@@ -18,12 +18,6 @@
               ]
             }
           }
-        },
-        "pubsubTopics": {
-          "0": {
-            "topic": "local/topic",
-            "type": "PUB_SUB"
-          }
         }
       }
     },

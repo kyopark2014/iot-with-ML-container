@@ -15,7 +15,6 @@ from inference import handler
 logger = logging.getLogger(__name__)
 logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
-
 def main():
     topic = 'local/topic'
     print('topic: ' + topic)
