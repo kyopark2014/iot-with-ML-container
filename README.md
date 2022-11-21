@@ -99,8 +99,6 @@ def on_stream_event(event: SubscriptionResponseMessage) -> None:
 
 ## 배포 결과
 
-### 추론용 Component의 배포
-
 아래와 같이 Greengrass CLI를 이용하여 배포된 Component를 확인합니다. 
 
 ```java
@@ -148,7 +146,7 @@ CONTAINER ID   IMAGE                                                            
 2022-11-20T17:21:59.411Z [INFO] (Copier) com.ml.consumer: stdout. result: [6.573914051055908, 4.869720935821533]. {scriptName=services.com.ml.consumer.lifecycle.Run, serviceName=com.ml.consumer, currentState=RUNNING}
 ```
 
-### Greengrass Commands와 Memo
+## Greengrass Commands와 Memo
 
 유용한 [Greengrass 명령어와 중요한 메모들](https://github.com/kyopark2014/iot-greengrass/blob/main/greengrass-commands.md)를 정리하였습니다.
 
