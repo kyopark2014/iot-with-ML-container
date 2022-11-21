@@ -66,7 +66,7 @@ Greengrass V1.x에서는 Docker connector를 이용하였고 V2.0에서는 Compo
 Cloud9에서는 [EBS 크기 변경](https://github.com/kyopark2014/technical-summary/blob/main/resize.md)에 따라 EBS 크기를 확대합니다. 
 
 
-## Greengrass에 추론을 수행하기 위한 Interface 구성
+## Greengrass에서 추론을 수행하기 위한 Interface 구성
 
 Greengrass에서 사용하려고 하는 머신러닝 알고리즘은 Lambda에서 사용하였던 [inference.py](https://github.com/kyopark2014/iot-with-ML-container/blob/main/src/ml-container/inference.py)입니다. Lambdad의 경우에 입력의 형태가 event 이므로, [interface.py](https://github.com/kyopark2014/iot-with-ML-container/blob/main/src/ml-container/interface.py)를 이용해 다른 component가 요청한 추론을 event로 변환하고, 그 결과를 다시 다른 component로 전송하여야 합니다.
 
