@@ -68,9 +68,9 @@ Cloud9에서는 [EBS 크기 변경](https://github.com/kyopark2014/technical-sum
 
 ## Greengrass에 추론을 수행하기 위한 Interface 구성
 
-Greengrass에서 사용하려고 하는 머신러닝 알고리즘은 Lambda에서 사용하였던 inference.py 입니다. Lambdad의 경우에 입력의 형태가 event 이므로, interface.py를 이용해 다른 component가 요청한 추론을 event로 변환하고, 그 결과를 다시 다른 component로 전송하여야 합니다.
+Greengrass에서 사용하려고 하는 머신러닝 알고리즘은 Lambda에서 사용하였던 [inference.py](https://github.com/kyopark2014/iot-with-ML-container/blob/main/src/ml-container/inference.py)입니다. Lambdad의 경우에 입력의 형태가 event 이므로, [interface.py](https://github.com/kyopark2014/iot-with-ML-container/blob/main/src/ml-container/interface.py)를 이용해 다른 component가 요청한 추론을 event로 변환하고, 그 결과를 다시 다른 component로 전송하여야 합니다.
 
-Greengrass의 componnet들은 IPC 방식으로 통신을 하므로, interface.py에서는 IPC Client V2을 활용하여 Necleus와 IPC session을 생성하고, 다른 추론을 원하는 Component가 publish 방식으로 전달한 요청(Request)을 event 포맷으로 변경하여, inference.py를 이용해 추론을 수행합니다. 여기서는 추론을 요청하는 component인 com.ml.consumer로부터 'local/topic'이라는 topic 이름으로 request를 stream event를 통해 받아서 처리하는 구조입니다. 
+Greengrass의 componnet들은 IPC 방식으로 통신을 하므로, [interface.py](https://github.com/kyopark2014/iot-with-ML-container/blob/main/src/ml-container/interface.py)에서는 IPC Client V2을 활용하여 Necleus와 IPC session을 생성하고, 다른 추론을 원하는 Component가 publish 방식으로 전달한 요청(Request)을 event 포맷으로 변경하여, inference.py를 이용해 추론을 수행합니다. 여기서는 추론을 요청하는 component인 "com.ml.consumer"로부터 'local/topic'이라는 topic 이름으로 request를 stream event를 통해 받아서 처리하는 구조입니다. 
 
 ```python
 def on_stream_event(event: SubscriptionResponseMessage) -> None:
