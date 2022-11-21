@@ -21,7 +21,7 @@
 
 아래는 전체적인 Architecture를 설명하고 있습니다. IoT Greengrass 디바이스에는 추론(Inference)을 제공하는 Container Component와 추론을 요청하는 Local Component가 있습니다. Local Component는 각종 IoT 센서와 연결되어 있는데, 동작에 머신러닝을 활용하고자 할때 마치 Cloud 사용자가 RESTful API로 Lambda의 추론(Inference) API를 호출하듯이, Component간의 IPC 통신을 이용하여 Container Component의 추론(Inference) 기능을 호출하여 사용할 수 있습니다. Container Component는 Lambda의 Infence API를 그대로 가져와서 Greengrass 디바이스에서 실행할 수 있도록 해줍니다. Lambda는 event 방식으로 호출하는 구조이지만, Greengrass의 component들은 IPC 통신으로 연결되어야 하므로, Container Component에 있는 [Interface.py](https://github.com/kyopark2014/iot-with-ML-container/blob/main/src/ml-container/interface.py)는 IPC Client V2를 이용하여 local component와 IPC 세션을 열고, 인입된 요청을 event 형태로 바꾸어서 추론을 Inference 모듈로 전달하여 처리합니다. Container Component에 있는 Inference model에는 Lambda와 동일한 [inference.py](https://github.com/kyopark2014/iot-with-ML-container/blob/main/src/ml-container/inference.py)와 [xgboost machine learning model](https://github.com/kyopark2014/iot-with-ML-container/blob/main/src/ml-container/xgboost_wine_quality.json)을 가지고 있습니다. AWS CDK는 Container Component의 [Dockerfile](https://github.com/kyopark2014/iot-with-ML-container/blob/main/src/ml-container/Dockerfile)을 이용하여 Infernce API를 제공할수 있는 Docker Container Image를 생성하고, ECR에 저장한 다음에, AWS IoT Device Management를 이용하여 Greengrass 디바이스에 배포합니다. 
 
-![image](https://user-images.githubusercontent.com/52392004/202931624-25f2db2c-9264-4565-a7cf-4e69b82695cd.png)
+<img width="869" alt="image" src="https://user-images.githubusercontent.com/52392004/202946335-5dfde6a3-e238-483e-95e9-ac5842901aca.png">
 
  
 <!--
