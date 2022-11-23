@@ -1,7 +1,6 @@
 import sys
 import time
 import traceback
-import logging
 import json
 
 from awsiot.greengrasscoreipc.clientv2 import GreengrassCoreIPCClientV2
