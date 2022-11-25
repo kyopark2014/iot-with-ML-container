@@ -65,7 +65,6 @@ from inference import handler
 def on_stream_event(event: SubscriptionResponseMessage) -> None:
     try:
         message = str(event.binary_message.message, 'utf-8')
-        topic = event.binary_message.context.topic
 
         # Inference
         json_data = json.loads(message) # json decoding        
