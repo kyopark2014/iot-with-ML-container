@@ -60,6 +60,8 @@ Greengrass에서 사용하려고 하는 머신러닝 알고리즘은 Lambda에�
 Greengrass의 componet들은 IPC 방식으로 통신을 하므로, [interface.py](https://github.com/kyopark2014/iot-with-ML-container/blob/main/src/ml-container/interface.py)에서는 IPC Client V2을 활용하여 Nucleus와 IPC session을 생성하고, 다른 추론을 원하는 Component가 publish 방식으로 전달한 요청(Request)을 event 포맷으로 변경하여, inference.py를 이용해 추론을 수행합니다. 여기서는 추론을 요청하는 component인 "com.ml.consumer"로부터 'local/topic'이라는 topic 이름으로 request를 stream event를 통해 받아서 처리하는 구조입니다. 
 
 ```python
+from inference import handler  
+
 def on_stream_event(event: SubscriptionResponseMessage) -> None:
     try:
         message = str(event.binary_message.message, 'utf-8')
