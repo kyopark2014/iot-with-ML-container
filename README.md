@@ -103,7 +103,7 @@ Component Name: com.ml.consumer
     State: RUNNING
     Configuration: {"accessControl":{"aws.greengrass.ipc.pubsub":{"com.ml.consumer:pubsub:1":{"operations":["aws.greengrass#PublishToTopic"],"policyDescription":"Allows access to publish to all topics.","resources":["*"]}}}}
 Component Name: com.ml.xgboost
-    Version: 1.0.2
+    Version: 1.0.0
     State: RUNNING
     Configuration: {"accessControl":{"aws.greengrass.ipc.pubsub":{"com.ml.xgboost:pubsub:1":{"operations":["aws.greengrass#SubscribeToTopic"],"policyDescription":"Allows access to subscribe to all topics.","resources":["*"]}}}}
 ```
