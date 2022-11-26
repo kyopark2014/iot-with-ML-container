@@ -48,9 +48,7 @@ Greengrass V1.x에서는 Docker connector를 이용하였고 V2.0에서는 Compo
 
 [Docker Container 준비](https://github.com/kyopark2014/iot-greengrass/blob/main/docker-component.md#docker-container-preparation)에 따라, Greengrass에서 Docker container component를 사용하기 위하여 반드시 필요한 사용자 퍼미션을 설정합니다. 
 
-### Cloud9
 
-Cloud9에서는 [EBS 크기 변경](https://github.com/kyopark2014/technical-summary/blob/main/resize.md)에 따라 EBS 크기를 확대합니다. 
 
 
 ## Greengrass에서 추론을 수행하기 위한 Interface 구성
