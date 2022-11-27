@@ -190,12 +190,12 @@ export class componentDeployment extends cdk.Stack {
     const cfnDeployment = new greengrassv2.CfnDeployment(this, 'MyCfnDeployment', {
       targetArn: `arn:aws:iot:ap-northeast-2:`+accountId+`:thing/`+deviceName,    
       components: {
-        "com.ml.consumer": {
+     /*   "com.ml.consumer": {
           componentVersion: version_consumer 
-        }, 
-     /*   "com.ml.xgboost": {
+        }, */
+        "com.ml.xgboost": {
           componentVersion: version_xgboost
-        },  */
+        },  
         "aws.greengrass.Cli": {
           componentVersion: "2.9.0", 
         }
