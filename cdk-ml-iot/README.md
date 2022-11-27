@@ -180,7 +180,7 @@ export class componentDeployment extends cdk.Stack {
 ```
 
 
-## CDK Code 생성 및 배포
+## CDK Deployment
 
 여기에서는 CDK를 이용해 머신러닝 알고리즘 추론을 IoT Greengrass에 배포하는 방법에 대해 설명합니다. 
 
