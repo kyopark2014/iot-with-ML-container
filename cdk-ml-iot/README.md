@@ -287,9 +287,10 @@ repo.addLifecycleRule({ tagPrefixList: ['dev'], maxImageCount: 9999 });
 repo.addLifecycleRule({ maxImageAge: cdk.Duration.days(30) });
 ```    
 
+<!--
 ## Troubleshooting
 
-Cloud9에서 최초 배포시 아래처럼 배포에 실패할 수 있습니다.
+Deployment가 있는 상태에서 신규로 같은 이름의 Device를 생성하면 아래처럼 배포에 실패할 수 있습니다.
 
 ![image](https://user-images.githubusercontent.com/52392004/204113867-7c6463e8-f523-42ca-86ae-6cbe8bd2b271.png)
 
@@ -306,7 +307,7 @@ Cloud9에서 최초 배포시 아래처럼 배포에 실패할 수 있습니다.
 이때는 아래처럼 [Actions] - [Revise]에서 수동으로 재배포를 수행합니다. 
 
 ![noname](https://user-images.githubusercontent.com/52392004/204114007-6f64e580-3df9-4f69-bfea-166c2149d251.png)
-
+->
 
 
 ## Reference
