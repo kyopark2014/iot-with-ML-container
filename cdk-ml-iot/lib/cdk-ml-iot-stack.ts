@@ -41,16 +41,18 @@ export class CdkMlIotStack extends cdk.Stack {
       destinationBucket: s3Bucket,
     });
 
-    // create container component - com.ml.xgboost
-    const version_xgboost = "1.0.0"
-    new containerComponent(scope, "container-component", version_xgboost)   
-
     // create local component
     const version_consumer = "1.0.0"
-    new localComponent(scope, "local-component", version_consumer, s3Bucket.bucketName)  
+    const local = new localComponent(scope, "local-component", version_consumer, s3Bucket.bucketName)      
 
+    // create container component - com.ml.xgboost
+    const version_xgboost = "1.0.0"
+    const container = new containerComponent(scope, "container-component", version_xgboost)   
+    container.addDependency(local);
+    
     // deploy components
-    new componentDeployment(scope, "deployments", version_consumer, version_xgboost, accountId, deviceName)   
+    const deployment = new componentDeployment(scope, "deployments", version_consumer, version_xgboost, accountId, deviceName)   
+    deployment.addDependency(container);
   }
 }
 
@@ -193,12 +195,12 @@ export class componentDeployment extends cdk.Stack {
         "com.ml.consumer": {
           componentVersion: version_consumer 
         }, 
-      /*  "com.ml.xgboost": {
+        "com.ml.xgboost": {
           componentVersion: version_xgboost
         },  
         "aws.greengrass.Cli": {
           componentVersion: "2.9.0", 
-        } */
+        } 
       },
       deploymentName: 'component-deployment',
       deploymentPolicies: {
