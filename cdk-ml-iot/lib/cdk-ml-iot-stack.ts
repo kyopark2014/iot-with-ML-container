@@ -194,7 +194,7 @@ export class componentDeployment extends cdk.Stack {
           componentVersion: version_consumer 
         }, */
         "com.ml.xgboost": {
-          componentVersion: version_xgboost
+          //componentVersion: version_xgboost
         },  
         "aws.greengrass.Cli": {
           componentVersion: "2.9.0", 
