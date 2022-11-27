@@ -1,93 +1,8 @@
 # CDK로 머신러닝 알고리즘 추론을 IoT Greengrass에 배포하기 
 
+## CDK Code 설명
 
-## CDK Code 생성
-
-여기에서는 CDK를 이용해 머신러닝 알고리즘 추론을 IoT Greengrass에 배포하는 방법에 대해 설명합니다. 
-
-### Github Code를 활용하는 경우
-
-아래와 같이 github의 코드를 다운로드 합니다. 
-
-```java
-git clone https://github.com/kyopark2014/iot-with-ML-container
-```
-
-cdk 폴더로 이동합니다. 
-
-```java
-cd iot-with-ML-container/cdk-ml-iot/
-```
-
-필요한 라이브러리를 설치합니다.
-
-```java
-npm install aws-cdk-lib path
-```
-
-Component들이 여러개의 stack으로 구성하였으므로 아래와 같이 배포를 수행합니다. 
-
-```java
-cdk deploy --all
-```
-
-### 신규로 CDK를 생성하는 경우
-
-[CDK 초기화](https://github.com/kyopark2014/technical-summary/blob/main/cdk-introduction.md#cdk-initiation)를 참조하여 아래처럼 CDK를 신규로 생성합니다.
-
-```java
-mkdir cdk-ml-iot && cd cdk-ml-iot
-cdk init app --language typescript
-```
-
-아래와 같이 bootstrap을 수행합니다. AWS 계정 당 한번만 수행하면 됩니다.
-
-```java
-cdk bootstrap aws://123456789012/ap-northeast-2
-```
-
-여기서 “123456789012”는 AWS account number입니다. 이 값은 AWS Console에서 확인할 수 있고, 아래와 같이 AWS CLI 명령어로 확인할 수도 있습니다.
-
-```java
-aws sts get-caller-identity --query Account --output text
-```
-
-
-CDK V2를 설치합니다.
-
-```java
-cd cdk-ml-iot
-npm install aws-cdk-lib
-```
-
-Path 라이브러리를 설치합니다.
-
-```java
-npm install path
-```
-## 배포상태의 확인
-
-[Greengrass Console - Deployment](https://ap-northeast-2.console.aws.amazon.com/iot/home?region=ap-northeast-2#/greengrass/v2/deployments)에서 아래와 같이 배포상태를 확인합니다. 
-
-![image](https://user-images.githubusercontent.com/52392004/204114110-16803b65-98e8-46a2-a131-df20bc203624.png)
-
-또한, 아래와 같이 Greengrass에 Docker로 container component가 등록되었는지 확인합니다. 
-
-```java
-docker ps
-CONTAINER ID   IMAGE                                                                                                                                                                           COMMAND                  CREATED         STATUS         PORTS     NAMES
-70e87fcbb8ee   123456789012.dkr.ecr.ap-northeast-2.amazonaws.com/cdk-hnb659fds-container-assets-123456789012-ap-northeast-2:01f0d4028663d4e0a7798d55e70bfee2c94f7e0a25d849b11f868555b0da650d   "python3 /var/task/x…"   3 minutes ago   Up 3 minutes             modest_edison
-```
-
-정상적으로 배포가 되었다면 아래와 같이 "com.ml.consumer"로그에서 request에 대해 container component가 정상적으로 응답함을 알수 있습니다. 
-```java
-sudo tail -f /greengrass/v2/logs/com.ml.consumer.log
-
-2022-11-27T00:53:02.267Z [INFO] (Copier) com.ml.consumer: stdout. request: {"body": "[{\"fixed acidity\":6.6,\"volatile acidity\":0.24,\"citric acid\":0.28,\"residual sugar\":1.8,\"chlorides\":0.028,\"free sulfur dioxide\":39,\"total sulfur dioxide\":132,\"density\":0.99182,\"pH\":3.34,\"sulphates\":0.46,\"alcohol\":11.4,\"color_red\":0,\"color_white\":1},{\"fixed acidity\":8.7,\"volatile acidity\":0.78,\"citric acid\":0.51,\"residual sugar\":1.7,\"chlorides\":0.415,\"free sulfur dioxide\":12,\"total sulfur dioxide\":66,\"density\":0.99623,\"pH\":3.0,\"sulphates\":1.17,\"alcohol\":9.2,\"color_red\":1,\"color_white\":0}]", "isBase64Encoded": false}. {scriptName=services.com.ml.consumer.lifecycle.Run, serviceName=com.ml.consumer, currentState=RUNNING}
-2022-11-27T00:53:02.292Z [INFO] (Copier) com.ml.consumer: stdout. result: [6.573914051055908, 4.869720935821533]. {scriptName=services.com.ml.consumer.lifecycle.Run, serviceName=com.ml.consumer, currentState=RUNNING}
-```
-
-## CDK 코드 설명 
+아래와 같이 [cdk-ml-iot-stack.ts](https://github.com/kyopark2014/iot-with-ML-container/blob/main/cdk-ml-iot/lib/cdk-ml-iot-stack.ts)에 대해 설명합니다.
 
 ### 추론용 Docker Image로 Container Component 생성
 
@@ -263,6 +178,102 @@ export class componentDeployment extends cdk.Stack {
   }
 }
 ```
+
+
+## CDK Code 생성
+
+여기에서는 CDK를 이용해 머신러닝 알고리즘 추론을 IoT Greengrass에 배포하는 방법에 대해 설명합니다. 
+
+### Github Code를 활용하는 경우
+
+아래와 같이 github의 코드를 다운로드 합니다. 
+
+```java
+git clone https://github.com/kyopark2014/iot-with-ML-container
+```
+
+cdk 폴더로 이동합니다. 
+
+```java
+cd iot-with-ML-container/cdk-ml-iot/
+```
+
+필요한 라이브러리를 설치합니다.
+
+```java
+npm install aws-cdk-lib path
+```
+
+Component들이 여러개의 stack으로 구성하였으므로 아래와 같이 배포를 수행합니다. 
+
+```java
+cdk deploy --all
+```
+
+### 신규로 CDK를 생성하는 경우
+
+[CDK 초기화](https://github.com/kyopark2014/technical-summary/blob/main/cdk-introduction.md#cdk-initiation)를 참조하여 아래처럼 CDK를 신규로 생성합니다.
+
+```java
+mkdir cdk-ml-iot && cd cdk-ml-iot
+cdk init app --language typescript
+```
+
+아래와 같이 bootstrap을 수행합니다. AWS 계정 당 한번만 수행하면 됩니다.
+
+```java
+cdk bootstrap aws://123456789012/ap-northeast-2
+```
+
+여기서 “123456789012”는 AWS account number입니다. 이 값은 AWS Console에서 확인할 수 있고, 아래와 같이 AWS CLI 명령어로 확인할 수도 있습니다.
+
+```java
+aws sts get-caller-identity --query Account --output text
+```
+
+CDK V2를 설치합니다.
+
+```java
+cd cdk-ml-iot
+npm install aws-cdk-lib
+```
+
+Path 라이브러리를 설치합니다.
+
+```java
+npm install path
+```
+
+[cdk-ml-iot-stack.ts](https://github.com/kyopark2014/iot-with-ML-container/blob/main/cdk-ml-iot/lib/cdk-ml-iot-stack.ts)를 참조하여 import와 component 선언 및 배포 부분을 복사합니다. 
+
+Component들이 여러개의 stack으로 구성하였으므로 아래와 같이 배포를 수행합니다. 
+
+```java
+cdk deploy --all
+```
+
+## 배포상태의 확인
+
+[Greengrass Console - Deployment](https://ap-northeast-2.console.aws.amazon.com/iot/home?region=ap-northeast-2#/greengrass/v2/deployments)에서 아래와 같이 배포상태를 확인합니다. 
+
+![image](https://user-images.githubusercontent.com/52392004/204114110-16803b65-98e8-46a2-a131-df20bc203624.png)
+
+또한, 아래와 같이 Greengrass에 Docker로 container component가 등록되었는지 확인합니다. 
+
+```java
+docker ps
+CONTAINER ID   IMAGE                                                                                                                                                                           COMMAND                  CREATED         STATUS         PORTS     NAMES
+70e87fcbb8ee   123456789012.dkr.ecr.ap-northeast-2.amazonaws.com/cdk-hnb659fds-container-assets-123456789012-ap-northeast-2:01f0d4028663d4e0a7798d55e70bfee2c94f7e0a25d849b11f868555b0da650d   "python3 /var/task/x…"   3 minutes ago   Up 3 minutes             modest_edison
+```
+
+정상적으로 배포가 되었다면 아래와 같이 "com.ml.consumer"로그에서 request에 대해 container component가 정상적으로 응답함을 알수 있습니다. 
+```java
+sudo tail -f /greengrass/v2/logs/com.ml.consumer.log
+
+2022-11-27T00:53:02.267Z [INFO] (Copier) com.ml.consumer: stdout. request: {"body": "[{\"fixed acidity\":6.6,\"volatile acidity\":0.24,\"citric acid\":0.28,\"residual sugar\":1.8,\"chlorides\":0.028,\"free sulfur dioxide\":39,\"total sulfur dioxide\":132,\"density\":0.99182,\"pH\":3.34,\"sulphates\":0.46,\"alcohol\":11.4,\"color_red\":0,\"color_white\":1},{\"fixed acidity\":8.7,\"volatile acidity\":0.78,\"citric acid\":0.51,\"residual sugar\":1.7,\"chlorides\":0.415,\"free sulfur dioxide\":12,\"total sulfur dioxide\":66,\"density\":0.99623,\"pH\":3.0,\"sulphates\":1.17,\"alcohol\":9.2,\"color_red\":1,\"color_white\":0}]", "isBase64Encoded": false}. {scriptName=services.com.ml.consumer.lifecycle.Run, serviceName=com.ml.consumer, currentState=RUNNING}
+2022-11-27T00:53:02.292Z [INFO] (Copier) com.ml.consumer: stdout. result: [6.573914051055908, 4.869720935821533]. {scriptName=services.com.ml.consumer.lifecycle.Run, serviceName=com.ml.consumer, currentState=RUNNING}
+```
+
 
 ## 삭제
 
