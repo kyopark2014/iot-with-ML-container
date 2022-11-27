@@ -198,10 +198,17 @@ cdk 폴더로 이동합니다.
 cd iot-with-ML-container/cdk-ml-iot/
 ```
 
-필요한 라이브러리를 설치합니다.
+CDK V2를 설치합니다.
 
 ```java
-npm install aws-cdk-lib path
+cd cdk-ml-iot
+npm install aws-cdk-lib
+```
+
+Path 라이브러리를 설치합니다.
+
+```java
+npm install path
 ```
 
 Component들이 여러개의 stack으로 구성하였으므로 아래와 같이 배포를 수행합니다. 
