@@ -328,19 +328,7 @@ repo.addLifecycleRule({ maxImageAge: cdk.Duration.days(30) });
 <!--
 ## Troubleshooting
 
-Deployment가 있는 상태에서 신규로 같은 이름의 Device를 생성하면 아래처럼 배포에 실패할 수 있습니다.
 
-![image](https://user-images.githubusercontent.com/52392004/204113867-7c6463e8-f523-42ca-86ae-6cbe8bd2b271.png)
-
-이때의 로그를 보면 아래처럼 필요한 component가 없어서 발생하는 문제점입니다.
-
-```java
-2022-11-27T00:14:17.923Z [INFO] (pool-2-thread-34) com.aws.greengrass.deployment.DeploymentService: deployment-task-execution. Starting deployment task. {Deployment service config={ComponentToGroups={}, dependencies=[], GroupToRootComponents={}, runtime={ProcessedDeployments={}}, version=0.0.0}, deploymentId=04992599-708c-438f-b0c7-02aa0adfa66e, serviceName=DeploymentService, currentState=RUNNING}
-2022-11-27T00:14:19.189Z [INFO] (pool-2-thread-35) com.aws.greengrass.componentmanager.DependencyResolver: resolve-group-dependencies-start. Start to resolve group dependencies. {targetComponents=[com.ml.xgboost, aws.greengrass.Cli, com.ml.consumer], componentToVersionRequirements={com.ml.xgboost={thing/GreengrassCore-18163f7ac3e==1.0.0}, aws.greengrass.Cli={thing/GreengrassCore-18163f7ac3e==2.9.0}, com.ml.consumer={thing/GreengrassCore-18163f7ac3e==1.0.0}}}
-2022-11-27T00:14:19.191Z [INFO] (pool-2-thread-35) com.aws.greengrass.componentmanager.ComponentManager: No running component satisfies the requirement. Searching in the local component store.. {}
-2022-11-27T00:14:19.196Z [INFO] (pool-2-thread-35) com.aws.greengrass.componentmanager.ComponentManager: Can't find a local candidate that satisfies the requirement.. {}
-2022-11-27T00:14:19.554Z [INFO] (pool-2-thread-35) com.aws.greengrass.componentmanager.ComponentManager: resolve-component-version-end. Resolved component version.. {ResolvedComponent=com.ml.xgboost-v1.0.0}
-```
 
 이때는 아래처럼 [Actions] - [Revise]에서 수동으로 재배포를 수행합니다. 
 
