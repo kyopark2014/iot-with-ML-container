@@ -72,7 +72,7 @@ def on_stream_event(event: SubscriptionResponseMessage) -> None:
 
 ### CDK로 Component 배포하기 
 
-[CDK로 머신러닝 알고리즘 추론을 IoT Greengrass에 배포하기](https://github.com/kyopark2014/iot-with-ML-container/tree/main/cdk-ml-iot)에 따라 CDK로 추론을 수행하는 Container component와 추론을 요청하는 local compnent를 생성합니다. 
+[CDK로 머신러닝 알고리즘 추론을 IoT Greengrass에 배포하기](https://github.com/kyopark2014/iot-with-ML-container/blob/main/cdk-ml-iot/README.md#cdk-deployment)에 따라 CDK로 추론을 수행하는 Container component와 추론을 요청하는 local compnent를 생성합니다. 
 
 ### 배포 결과의 확인 
 
