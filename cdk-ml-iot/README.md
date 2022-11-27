@@ -303,7 +303,7 @@ Cloud9에서 최초 배포시 아래처럼 배포에 실패할 수 있습니다.
 2022-11-27T00:14:19.554Z [INFO] (pool-2-thread-35) com.aws.greengrass.componentmanager.ComponentManager: resolve-component-version-end. Resolved component version.. {ResolvedComponent=com.ml.xgboost-v1.0.0}
 ```
 
-이때는 아래처럼 수동으로 재배포를 수행합니다. 
+이때는 아래처럼 [Actions] - [Revise]에서 수동으로 재배포를 수행합니다. 
 
 ![noname](https://user-images.githubusercontent.com/52392004/204114007-6f64e580-3df9-4f69-bfea-166c2149d251.png)
 
