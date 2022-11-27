@@ -19,8 +19,21 @@ cdk 폴더로 이동합니다.
 cd iot-with-ML-container/cdk-ml-iot/
 ```
 
-필요한 
-필요한 라이브러리를 
+필요한 라이브러리를 설치합니다.
+
+```java
+npm install aws-cdk-lib path
+```
+
+Component들이 여러개의 stack으로 구성하였으므로 아래와 같이 배포를 수행합니다. 
+
+```java
+cdk deploy --all
+```
+
+### 신규로 CDK를 생성하는 경우
+
+
 
 
 CDK V2를 설치합니다.
@@ -214,13 +227,9 @@ export class componentDeployment extends cdk.Stack {
 }
 ```
 
-## 배포 및 삭제
+## 삭제
 
-편의상 Component들이 여러개의 stack으로 구성하였으므로 아래와 같이 배포를 수행합니다. 
 
-```java
-cdk deploy --all
-```
 
 배포에 사용했던 S3와 Recipe, Artifact의 삭제는 아래 명령어를 통해 삭제할 수 있습니다. 하지만 아래 명령어로 Device에 배포된 Component들이 삭제되지 않습니다. 디바이스의 Component들은 재배포시 해당 Component를 리스트에서 제외하고 배포하여야 삭제가 가능합니다.
 
