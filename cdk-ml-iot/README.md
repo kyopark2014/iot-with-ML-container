@@ -67,6 +67,8 @@ npm install path
 ```
 ## 배포상태의 확인
 
+[Greengrass Console - Deployment](https://ap-northeast-2.console.aws.amazon.com/iot/home?region=ap-northeast-2#/greengrass/v2/deployments)에서 아래와 같이 배포상태를 확인합니다. 
+
 ![image](https://user-images.githubusercontent.com/52392004/204114110-16803b65-98e8-46a2-a131-df20bc203624.png)
 
 
