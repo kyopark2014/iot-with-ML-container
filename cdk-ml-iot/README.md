@@ -65,6 +65,9 @@ Path 라이브러리를 설치합니다.
 ```java
 npm install path
 ```
+## 배포상태의 확인
+
+![image](https://user-images.githubusercontent.com/52392004/204114110-16803b65-98e8-46a2-a131-df20bc203624.png)
 
 
 ## CDK 코드 설명 
