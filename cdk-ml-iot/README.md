@@ -201,7 +201,6 @@ cd iot-with-ML-container/cdk-ml-iot/
 CDK V2를 설치합니다.
 
 ```java
-cd cdk-ml-iot
 npm install aws-cdk-lib
 ```
 
