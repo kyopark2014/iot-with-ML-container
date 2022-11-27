@@ -325,13 +325,17 @@ repo.addLifecycleRule({ tagPrefixList: ['dev'], maxImageCount: 9999 });
 repo.addLifecycleRule({ maxImageAge: cdk.Duration.days(30) });
 ```    
 
-<!--
+
 ## Troubleshooting
 
-배포후에 정상적으로 배포가 안될 경우에는 아래처럼 [Actions] - [Revise]에서 수동으로 재배포를 수행합니다. 
+이전 deployment를 삭제하고 재설치한 경우에 간혈적으로 배포후 Status가 "Completed"로 되었음에도 [Console Core Deivces](https://ap-northeast-2.console.aws.amazon.com/iot/home?region=ap-northeast-2#/greengrass/v2/cores)에서 components가 조회되지 않을 수 있습니다.
+
+![image](https://user-images.githubusercontent.com/52392004/204120961-110112df-7057-4228-aa04-8ef542d6610f.png)
+
+이와같이 배포가 안되었을 경우에는 아래처럼 [Actions] - [Revise]에서 수동으로 재배포를 수행합니다. 
 
 ![noname](https://user-images.githubusercontent.com/52392004/204114007-6f64e580-3df9-4f69-bfea-166c2149d251.png)
-->
+
 
 
 ## Reference
