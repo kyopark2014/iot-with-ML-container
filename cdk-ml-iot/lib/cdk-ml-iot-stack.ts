@@ -110,7 +110,6 @@ export class localComponent extends cdk.Stack {
   }
 }
 
-
 export class containerComponent extends cdk.Stack {
   constructor(scope: Construct, id: string, version: string, props?: cdk.StackProps) {    
     super(scope, id, props);
@@ -190,14 +189,14 @@ export class componentDeployment extends cdk.Stack {
     const cfnDeployment = new greengrassv2.CfnDeployment(this, 'MyCfnDeployment', {
       targetArn: `arn:aws:iot:ap-northeast-2:`+accountId+`:thing/`+deviceName,    
       components: {
-        "com.ml.consumer": {
-          componentVersion: version_consumer 
-        }, 
+        "aws.greengrass.Cli": {
+          componentVersion: "2.9.0", 
+        },
         "com.ml.xgboost": {
           componentVersion: version_xgboost
         },  
-        "aws.greengrass.Cli": {
-          componentVersion: "2.9.0", 
+        "com.ml.consumer": {
+          componentVersion: version_consumer 
         }
       },
       deploymentName: 'component-deployment',
