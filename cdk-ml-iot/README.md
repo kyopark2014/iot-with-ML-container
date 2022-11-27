@@ -328,9 +328,7 @@ repo.addLifecycleRule({ maxImageAge: cdk.Duration.days(30) });
 <!--
 ## Troubleshooting
 
-
-
-이때는 아래처럼 [Actions] - [Revise]에서 수동으로 재배포를 수행합니다. 
+배포후에 정상적으로 배포가 안될 경우에는 아래처럼 [Actions] - [Revise]에서 수동으로 재배포를 수행합니다. 
 
 ![noname](https://user-images.githubusercontent.com/52392004/204114007-6f64e580-3df9-4f69-bfea-166c2149d251.png)
 ->
