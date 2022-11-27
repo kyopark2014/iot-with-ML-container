@@ -33,7 +33,24 @@ cdk deploy --all
 
 ### 신규로 CDK를 생성하는 경우
 
+[CDK 초기화](https://github.com/kyopark2014/technical-summary/blob/main/cdk-introduction.md#cdk-initiation)를 참조하여 아래처럼 CDK를 신규로 생성합니다.
 
+```java
+mkdir cdk-ml-iot && cd cdk-ml-iot
+cdk init app --language typescript
+```
+
+아래와 같이 bootstrap을 수행합니다. AWS 계정 당 한번만 수행하면 됩니다.
+
+```java
+cdk bootstrap aws://123456789012/ap-northeast-2
+```
+
+여기서 “123456789012”는 AWS account number입니다. 이 값은 AWS Console에서 확인할 수 있고, 아래와 같이 AWS CLI 명령어로 확인할 수도 있습니다.
+
+```java
+aws sts get-caller-identity --query Account --output text
+```
 
 
 CDK V2를 설치합니다.
