@@ -268,6 +268,7 @@ cdk deploy --all
 
 ```java
 docker ps
+
 CONTAINER ID   IMAGE                                                                                                                                                                           COMMAND                  CREATED         STATUS         PORTS     NAMES
 70e87fcbb8ee   123456789012.dkr.ecr.ap-northeast-2.amazonaws.com/cdk-hnb659fds-container-assets-123456789012-ap-northeast-2:01f0d4028663d4e0a7798d55e70bfee2c94f7e0a25d849b11f868555b0da650d   "python3 /var/task/x…"   3 minutes ago   Up 3 minutes             modest_edison
 ```
