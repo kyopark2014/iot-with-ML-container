@@ -36,21 +36,6 @@
 Greengrass V1.x에서는 Docker connector를 이용하였고 V2.0에서는 Component의 Recipe의 environment variable에 정의된 registry에서 Docker Component를 생성하게 됩니다. 여기서는 Greengrass V2에 기반하여 추론용 Docker Image를 Greengrass에 container component로 배포합니다.
 
 
-
-
-## Preparation
-
-### Greengrass
-
-[Greengrass 준비](https://github.com/kyopark2014/iot-greengrass/blob/main/greengrass-commands.md#greengrass-preparation)에 따라, Greengrass installer를 다운로드하고, Core 디바이스로 등록합니다.
-
-### Docker Container 
-
-[Docker Container 준비](https://github.com/kyopark2014/iot-greengrass/blob/main/docker-component.md#docker-container-preparation)에 따라, Greengrass에서 Docker container component를 사용하기 위하여 반드시 필요한 사용자 퍼미션을 설정합니다. 
-
-
-
-
 ## Greengrass에서 추론을 수행하기 위한 Interface 구성
 
 Greengrass에서 사용하려고 하는 머신러닝 알고리즘은 Lambda에서 사용하였던 [inference.py](https://github.com/kyopark2014/iot-with-ML-container/blob/main/src/ml-container/inference.py)입니다. Lambda의 경우에 입력의 형태가 event 이므로, [interface.py](https://github.com/kyopark2014/iot-with-ML-container/blob/main/src/ml-container/interface.py)를 이용해 다른 component가 요청한 추론을 event로 변환하고, 그 결과를 다시 다른 component로 전송하여야 합니다.
@@ -72,14 +57,24 @@ def on_stream_event(event: SubscriptionResponseMessage) -> None:
         traceback.print_exc()
 ```        
 
-## CDK로 Component 배포하기 
+
+## Deployment
+
+### Preparation
+
+#### Greengrass
+
+[Greengrass 준비](https://github.com/kyopark2014/iot-greengrass/blob/main/greengrass-commands.md#greengrass-preparation)에 따라, Greengrass installer를 다운로드하고, Core 디바이스로 등록합니다.
+
+#### Docker Container 
+
+[Docker Container 준비](https://github.com/kyopark2014/iot-greengrass/blob/main/docker-component.md#docker-container-preparation)에 따라, Greengrass에서 Docker container component를 사용하기 위하여 반드시 필요한 사용자 퍼미션을 설정합니다. 
+
+### CDK로 Component 배포하기 
 
 [CDK로 머신러닝 알고리즘 추론을 IoT Greengrass에 배포하기](https://github.com/kyopark2014/iot-with-ML-container/tree/main/cdk-ml-iot)에 따라 CDK로 추론을 수행하는 Container component와 추론을 요청하는 local compnent를 생성합니다. 
 
-
-
-
-## 배포 결과
+### 배포 결과의 확인 
 
 아래와 같이 Greengrass CLI를 이용하여 배포된 Component를 확인합니다. 
 
