@@ -79,6 +79,14 @@ CONTAINER ID   IMAGE                                                            
 70e87fcbb8ee   123456789012.dkr.ecr.ap-northeast-2.amazonaws.com/cdk-hnb659fds-container-assets-123456789012-ap-northeast-2:01f0d4028663d4e0a7798d55e70bfee2c94f7e0a25d849b11f868555b0da650d   "python3 /var/task/x…"   3 minutes ago   Up 3 minutes             modest_edison
 ```
 
+정상적으로 배포가 되었다면 아래와 같이 "com.ml.consumer"로그에서 request에 대해 container component가 정상적으로 응답함을 알수 있습니다. 
+```java
+sudo tail -f /greengrass/v2/logs/com.ml.consumer.log
+
+2022-11-27T00:53:02.267Z [INFO] (Copier) com.ml.consumer: stdout. request: {"body": "[{\"fixed acidity\":6.6,\"volatile acidity\":0.24,\"citric acid\":0.28,\"residual sugar\":1.8,\"chlorides\":0.028,\"free sulfur dioxide\":39,\"total sulfur dioxide\":132,\"density\":0.99182,\"pH\":3.34,\"sulphates\":0.46,\"alcohol\":11.4,\"color_red\":0,\"color_white\":1},{\"fixed acidity\":8.7,\"volatile acidity\":0.78,\"citric acid\":0.51,\"residual sugar\":1.7,\"chlorides\":0.415,\"free sulfur dioxide\":12,\"total sulfur dioxide\":66,\"density\":0.99623,\"pH\":3.0,\"sulphates\":1.17,\"alcohol\":9.2,\"color_red\":1,\"color_white\":0}]", "isBase64Encoded": false}. {scriptName=services.com.ml.consumer.lifecycle.Run, serviceName=com.ml.consumer, currentState=RUNNING}
+2022-11-27T00:53:02.292Z [INFO] (Copier) com.ml.consumer: stdout. result: [6.573914051055908, 4.869720935821533]. {scriptName=services.com.ml.consumer.lifecycle.Run, serviceName=com.ml.consumer, currentState=RUNNING}
+```
+
 ## CDK 코드 설명 
 
 ### 추론용 Docker Image로 Container Component 생성
