@@ -1,8 +1,27 @@
 # CDK로 머신러닝 알고리즘 추론을 IoT Greengrass에 배포하기 
 
+
+## CDK Code 생성
+
 여기에서는 CDK를 이용해 머신러닝 알고리즘 추론을 IoT Greengrass에 배포하는 방법에 대해 설명합니다. 
 
-## 필요한 라이브러리 설치
+### Github Code를 활용하는 경우
+
+아래와 같이 github의 코드를 다운로드 합니다. 
+
+```java
+git clone https://github.com/kyopark2014/iot-with-ML-container
+```
+
+cdk 폴더로 이동합니다. 
+
+```java
+cd iot-with-ML-container/cdk-ml-iot/
+```
+
+필요한 
+필요한 라이브러리를 
+
 
 CDK V2를 설치합니다.
 
@@ -17,7 +36,10 @@ Path 라이브러리를 설치합니다.
 npm install path
 ```
 
-## 추론용 Docker Image로 Container Component 생성
+
+## CDK 코드 설명 
+
+### 추론용 Docker Image로 Container Component 생성
 
 아래와 같이 ml-container 폴더에 있는 Dockerfile과 추론 소스인 inference.py을 이용하여 Docker Image를 생성하여, ECR로 복사하여 Artifact를 준비하고, Recipe로 준비합니다. 
 
@@ -94,7 +116,7 @@ export class containerComponent extends cdk.Stack {
 }
 ```
 
-## 추론을 수행하는 com.ml.consumer 생성
+### 추론을 수행하는 com.ml.consumer 생성
 
 실제 추론을 원하는 Component는 아래와 같이 간단하게 local component로 생성할 수 있습니다.
 
@@ -156,7 +178,7 @@ export class localComponent extends cdk.Stack {
 }
 ```
 
-## 추론을 위한 Container component의 배포
+### 추론을 위한 Container component의 배포
 
 아래와 같이 Greengrass에 추론용 Component들을 배포할 수 있습니다. 
 
