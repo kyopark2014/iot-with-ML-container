@@ -12,10 +12,34 @@ export class CdkMlIotStack extends cdk.Stack {
     
     const deviceName = 'GreengrassCore-18163f7ac3e'
     const accountId = cdk.Stack.of(this).account
+    const bucketName = "gg-depolyment-storage"
+
+    // s3 deployment
+    const s3deploy = new s3Deployment(scope, "s3-deployment", bucketName)      
+
+    // create local component
+    const version_consumer = "1.0.0"
+    const local = new localComponent(scope, "local-component", version_consumer, bucketName)      
+    local.addDependency(s3deploy);
+
+    // create container component - com.ml.xgboost
+    const version_xgboost = "1.0.0"
+    const container = new containerComponent(scope, "container-component", version_xgboost)   
+    container.addDependency(local);
+    
+    // deploy components
+    const deployment = new componentDeployment(scope, "deployments", version_consumer, version_xgboost, accountId, deviceName)   
+    deployment.addDependency(container);
+  }
+}
+
+export class s3Deployment extends cdk.Stack {
+  constructor(scope: Construct, id: string, bucketName: string, props?: cdk.StackProps) {    
+    super(scope, id, props);
 
     // S3 for artifact storage
     const s3Bucket = new s3.Bucket(this, "gg-depolyment-storage",{
-      bucketName: "gg-depolyment-storage",
+      bucketName: bucketName,
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
       autoDeleteObjects: true,
@@ -40,19 +64,6 @@ export class CdkMlIotStack extends cdk.Stack {
       sources: [s3Deploy.Source.asset("../src")],
       destinationBucket: s3Bucket,
     });
-
-    // create local component
-    const version_consumer = "1.0.0"
-    const local = new localComponent(scope, "local-component", version_consumer, s3Bucket.bucketName)      
-
-    // create container component - com.ml.xgboost
-    const version_xgboost = "1.0.0"
-    const container = new containerComponent(scope, "container-component", version_xgboost)   
-    container.addDependency(local);
-    
-    // deploy components
-    const deployment = new componentDeployment(scope, "deployments", version_consumer, version_xgboost, accountId, deviceName)   
-    deployment.addDependency(container);
   }
 }
 
@@ -111,7 +122,6 @@ export class localComponent extends cdk.Stack {
     });        
   }
 }
-
 
 export class containerComponent extends cdk.Stack {
   constructor(scope: Construct, id: string, version: string, props?: cdk.StackProps) {    
