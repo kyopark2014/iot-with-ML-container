@@ -60,17 +60,15 @@ def on_stream_event(event: SubscriptionResponseMessage) -> None:
 
 ## Deployment
 
-### Preparation
-
-#### Greengrass
+### Greengrass 준비
 
 [Greengrass 준비](https://github.com/kyopark2014/iot-greengrass/blob/main/greengrass-commands.md#greengrass-preparation)에 따라, Greengrass installer를 다운로드하고, Core 디바이스로 등록합니다.
 
-#### Docker Container 
+### Docker Container 준비
 
 [Docker Container 준비](https://github.com/kyopark2014/iot-greengrass/blob/main/docker-component.md#docker-container-preparation)에 따라, Greengrass에서 Docker container component를 사용하기 위하여 반드시 필요한 사용자 퍼미션을 설정합니다. 
 
-### CDK로 Component 배포하기 
+### CDK로 Component Deployment
 
 [CDK로 머신러닝 알고리즘 추론을 IoT Greengrass에 배포하기](https://github.com/kyopark2014/iot-with-ML-container/blob/main/cdk-ml-iot/README.md#cdk-deployment)에 따라 CDK로 추론을 수행하는 Container component와 추론을 요청하는 local compnent를 생성합니다. 
 
