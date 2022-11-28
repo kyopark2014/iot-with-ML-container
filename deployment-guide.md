@@ -35,12 +35,12 @@ unzip greengrass-nucleus-latest.zip -d GreengrassCore
 
 ### Greengrass 설치 
 
-아래와 같이 디바이스 이름은 "GreengrassCore-18163f7ac3eabc", Group은 ggc_user:ggc_group로 설치를 진행합니다. 
+아래와 같이 디바이스 이름은 "GreengrassCore-18163f7ac3e", Group은 ggc_user:ggc_group로 설치를 진행합니다. 
 
 ```java
 sudo -E java -Droot="/greengrass/v2" -Dlog.store=FILE -jar ./GreengrassCore/lib/Greengrass.jar \
 	--aws-region ap-northeast-2 \
-	--thing-name GreengrassCore-18163f7ac3eabc \
+	--thing-name GreengrassCore-18163f7ac3e \
 	--thing-group-name GreengrassGroup \
 	--component-default-user ggc_user:ggc_group \
 	--provision true \
@@ -48,11 +48,9 @@ sudo -E java -Droot="/greengrass/v2" -Dlog.store=FILE -jar ./GreengrassCore/lib/
 	--deploy-dev-tools true
 ```
 
-설치가 다 완료가 되면, [Greengrass Console](https://ap-northeast-2.console.aws.amazon.com/iot/home?region=ap-northeast-2#/greengrass/v2/cores)에서 아래와 같이 Greengrass core device로 "GreengrassCore-18163f7ac3eabc"가 등록된것을 알 수 있습니다.
+설치가 다 완료가 되면, [Greengrass Console](https://ap-northeast-2.console.aws.amazon.com/iot/home?region=ap-northeast-2#/greengrass/v2/cores)에서 아래와 같이 Greengrass core device로 "GreengrassCore-18163f7ac3e"가 등록된것을 알 수 있습니다.
 
-![noname](https://user-images.githubusercontent.com/52392004/204178744-147c98ec-0ac0-4495-a66a-6492e7b2d03c.png)
-
-
+![noname](https://user-images.githubusercontent.com/52392004/204112707-7d82e8dd-4e30-4c24-9e77-c64f42995a76.png)
 
 
 ### Cloud9의 EBS 크기 변경 
@@ -126,6 +124,12 @@ Component들이 여러개의 stack으로 구성하였으므로 아래와 같이 
 cdk deploy --all
 ```
 
+최초 CDK 배포시에 즉시 deployment가 적용되지 않을 수 있습니다. 이때 아래처럼, [Console - Deployment]에서 Revise를 선택하여 
+
+![noname](https://user-images.githubusercontent.com/52392004/204179872-b7e06e36-7896-46c7-91cf-9f5ae2677c2e.png)
+
+
+
 ## 배포 결과 확인
 
 
@@ -165,7 +169,7 @@ cdk destroy --all
 
 ## Troubleshooting
 
-이전 deployment를 삭제하고 재설치한 경우에 간혈적으로 배포후 Status가 "Completed"로 되었음에도 [Console Core Deivces](https://ap-northeast-2.console.aws.amazon.com/iot/home?region=ap-northeast-2#/greengrass/v2/cores)에서 components가 조회되지 않을 수 있습니다.
+배포후 Status가 "Completed"로 되었음에도 [Console Core Deivces](https://ap-northeast-2.console.aws.amazon.com/iot/home?region=ap-northeast-2#/greengrass/v2/cores)에서 components가 조회되지 않을 수 있습니다.
 
 ![image](https://user-images.githubusercontent.com/52392004/204120961-110112df-7057-4228-aa04-8ef542d6610f.png)
 
