@@ -2,11 +2,11 @@
 
 여기에서는 AWS의 개발환경인 Cloud9을 이용하여 Docker image된 ML 알고리즘을 IoT Greengrass에 배포하는 일련의 과정을 설명합니다. 
 
-# 1) Cloud9을 Greengrass 디바이스로 사용하기
+## 1) Cloud9을 Greengrass 디바이스로 사용하기
 
 Cloud9은 브라우저만으로 코드를 작성, 실행 및 디버깅할 수 있는 클라우드 기반 IDE(통합 개발 환경)로서 Greengrass 디바이스 동작을 테스트하기에 유용합니다.
 
-## Cloud9 생성
+### Cloud9 생성
 
 [Cloud9 Console](https://ap-northeast-2.console.aws.amazon.com/cloud9control/home?region=ap-northeast-2#/create)에서 아래와 같이 [Name]을 입력합니다.
 
@@ -57,7 +57,7 @@ sudo -E java -Droot="/greengrass/v2" -Dlog.store=FILE -jar ./GreengrassCore/lib/
 
 필요시 [EBS 크기 변경](https://github.com/kyopark2014/technical-summary/blob/main/resize.md)에 따라 EBS 크기를 확대합니다. 
 
-## 3) Docker Container Preparation
+## 3) Docker Container관련 설정
 
 Greengrass에서 Docker Container를 Component이용하기 위해서는 아래와 같은 설정이 필요합니다. 
 
