@@ -152,13 +152,29 @@ sudo tail -f /greengrass/v2/logs/com.ml.consumer.log
 2022-11-28T03:00:34.872Z [INFO] (Copier) com.ml.consumer: stdout. request: {"body": "[{\"fixed acidity\":6.6,\"volatile acidity\":0.24,\"citric acid\":0.28,\"residual sugar\":1.8,\"chlorides\":0.028,\"free sulfur dioxide\":39,\"total sulfur dioxide\":132,\"density\":0.99182,\"pH\":3.34,\"sulphates\":0.46,\"alcohol\":11.4,\"color_red\":0,\"color_white\":1},{\"fixed acidity\":8.7,\"volatile acidity\":0.78,\"citric acid\":0.51,\"residual sugar\":1.7,\"chlorides\":0.415,\"free sulfur dioxide\":12,\"total sulfur dioxide\":66,\"density\":0.99623,\"pH\":3.0,\"sulphates\":1.17,\"alcohol\":9.2,\"color_red\":1,\"color_white\":0}]", "isBase64Encoded": false}. {scriptName=services.com.ml.consumer.lifecycle.Run, serviceName=com.ml.consumer, currentState=RUNNING}
 ```
 
-
+이때의 결과는 로그에서 아래처럼 확인할 수 있습니다. 
+```java
 2022-11-28T03:00:34.896Z [INFO] (Copier) com.ml.consumer: stdout. result: [6.573914051055908, 4.869720935821533]. {scriptName=services.com.ml.consumer.lifecycle.Run, serviceName=com.ml.consumer, currentState=RUNNING}
 ```
 
+container component인 "com.ml.xgboost"의 로그는 아래와 같습니다. 
+
+```java
+2022-11-28T03:07:05.358Z [INFO] (Copier) com.ml.xgboost: stdout. Received new message on topic local/inference: {"body": "[{\"fixed acidity\":6.6,\"volatile acidity\":0.24,\"citric acid\":0.28,\"residual sugar\":1.8,\"chlorides\":0.028,\"free sulfur dioxide\":39,\"total sulfur dioxide\":132,\"density\":0.99182,\"pH\":3.34,\"sulphates\":0.46,\"alcohol\":11.4,\"color_red\":0,\"color_white\":1},{\"fixed acidity\":8.7,\"volatile acidity\":0.78,\"citric acid\":0.51,\"residual sugar\":1.7,\"chlorides\":0.415,\"free sulfur dioxide\":12,\"total sulfur dioxide\":66,\"density\":0.99623,\"pH\":3.0,\"sulphates\":1.17,\"alcohol\":9.2,\"color_red\":1,\"color_white\":0}]", "isBase64Encoded": false}. {scriptName=services.com.ml.xgboost.lifecycle.Run, serviceName=com.ml.xgboost, currentState=RUNNING}
+2022-11-28T03:07:05.358Z [INFO] (Copier) com.ml.xgboost: stdout. event:  {'body': '[{"fixed acidity":6.6,"volatile acidity":0.24,"citric acid":0.28,"residual sugar":1.8,"chlorides":0.028,"free sulfur dioxide":39,"total sulfur dioxide":132,"density":0.99182,"pH":3.34,"sulphates":0.46,"alcohol":11.4,"color_red":0,"color_white":1},{"fixed acidity":8.7,"volatile acidity":0.78,"citric acid":0.51,"residual sugar":1.7,"chlorides":0.415,"free sulfur dioxide":12,"total sulfur dioxide":66,"density":0.99623,"pH":3.0,"sulphates":1.17,"alcohol":9.2,"color_red":1,"color_white":0}]', 'isBase64Encoded': False}. {scriptName=services.com.ml.xgboost.lifecycle.Run, serviceName=com.ml.xgboost, currentState=RUNNING}
+2022-11-28T03:07:05.358Z [INFO] (Copier) com.ml.xgboost: stdout. isBase64Encoded:  False. {scriptName=services.com.ml.xgboost.lifecycle.Run, serviceName=com.ml.xgboost, currentState=RUNNING}
+2022-11-28T03:07:05.358Z [INFO] (Copier) com.ml.xgboost: stdout. Base64 decoding is not required. {scriptName=services.com.ml.xgboost.lifecycle.Run, serviceName=com.ml.xgboost, currentState=RUNNING}
+2022-11-28T03:07:05.358Z [INFO] (Copier) com.ml.xgboost: stdout. body:  [{"fixed acidity":6.6,"volatile acidity":0.24,"citric acid":0.28,"residual sugar":1.8,"chlorides":0.028,"free sulfur dioxide":39,"total sulfur dioxide":132,"density":0.99182,"pH":3.34,"sulphates":0.46,"alcohol":11.4,"color_red":0,"color_white":1},{"fixed acidity":8.7,"volatile acidity":0.78,"citric acid":0.51,"residual sugar":1.7,"chlorides":0.415,"free sulfur dioxide":12,"total sulfur dioxide":66,"density":0.99623,"pH":3.0,"sulphates":1.17,"alcohol":9.2,"color_red":1,"color_white":0}]. {scriptName=services.com.ml.xgboost.lifecycle.Run, serviceName=com.ml.xgboost, currentState=RUNNING}
+2022-11-28T03:07:05.358Z [INFO] (Copier) com.ml.xgboost: stdout. values:     fixed acidity  volatile acidity  ...  color_red  color_white. {scriptName=services.com.ml.xgboost.lifecycle.Run, serviceName=com.ml.xgboost, currentState=RUNNING}
+2022-11-28T03:07:05.358Z [INFO] (Copier) com.ml.xgboost: stdout. 0            6.6              0.24  ...          0            1. {scriptName=services.com.ml.xgboost.lifecycle.Run, serviceName=com.ml.xgboost, currentState=RUNNING}
+2022-11-28T03:07:05.358Z [INFO] (Copier) com.ml.xgboost: stdout. 1            8.7              0.78  ...          1            0. {scriptName=services.com.ml.xgboost.lifecycle.Run, serviceName=com.ml.xgboost, currentState=RUNNING}
+2022-11-28T03:07:05.358Z [INFO] (Copier) com.ml.xgboost: stdout. {scriptName=services.com.ml.xgboost.lifecycle.Run, serviceName=com.ml.xgboost, currentState=RUNNING}
+2022-11-28T03:07:05.358Z [INFO] (Copier) com.ml.xgboost: stdout. [2 rows x 13 columns]. {scriptName=services.com.ml.xgboost.lifecycle.Run, serviceName=com.ml.xgboost, currentState=RUNNING}
+2022-11-28T03:07:05.358Z [INFO] (Copier) com.ml.xgboost: stdout. result: [6.573914 4.869721]. {scriptName=services.com.ml.xgboost.lifecycle.Run, serviceName=com.ml.xgboost, currentState=RUNNING}
+2022-11-28T03:07:05.358Z [INFO] (Copier) com.ml.xgboost: stdout. result: [6.573914051055908, 4.869720935821533]. {scriptName=services.com.ml.xgboost.lifecycle.Run, serviceName=com.ml.xgboost, currentState=RUNNING}
+```
 
 ## 삭제
-
 
 
 배포에 사용했던 S3와 Recipe, Artifact의 삭제는 아래 명령어를 통해 삭제할 수 있습니다. 하지만 아래 명령어로 Device에 배포된 Component들이 삭제되지 않습니다. 디바이스의 Component들은 재배포시 해당 Component를 리스트에서 제외하고 배포하여야 삭제가 가능합니다.
