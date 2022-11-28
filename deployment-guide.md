@@ -187,7 +187,7 @@ cdk destroy --all
 
 ## Troubleshooting
 
-배포후 Status가 "Completed"로 되었음에도 [Console Core Deivces](https://ap-northeast-2.console.aws.amazon.com/iot/home?region=ap-northeast-2#/greengrass/v2/cores)에서 components가 조회되지 않을 수 있습니다.
+테스트를 위해 배포를 반복하면 Status가 "Completed"로 되었음에도 [Console Core Deivces](https://ap-northeast-2.console.aws.amazon.com/iot/home?region=ap-northeast-2#/greengrass/v2/cores)에서 components가 조회되지 않을 수 있습니다. 이때는 아래처럼 Revise를 하면 정상적으로 배포가 됩니다. 
 
 ![image](https://user-images.githubusercontent.com/52392004/204120961-110112df-7057-4228-aa04-8ef542d6610f.png)
 
