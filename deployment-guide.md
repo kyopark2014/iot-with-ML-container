@@ -114,10 +114,11 @@ Component들이 여러개의 stack으로 구성하였으므로 아래와 같이 
 cdk deploy --all
 ```
 
+<!--
 최초 CDK 배포시에 즉시 deployment가 적용되지 않을 수 있습니다. 이때 아래처럼, [Console - Deployment]에서 Revise를 선택하여 
 
 ![noname](https://user-images.githubusercontent.com/52392004/204179872-b7e06e36-7896-46c7-91cf-9f5ae2677c2e.png)
-
+-->
 
 
 ## 배포 결과 확인
