@@ -58,23 +58,6 @@ export class CdkMlIotStack extends cdk.Stack {
   }
 }
 
-export class s3Deployment extends cdk.Stack {
-  constructor(scope: Construct, id: string, bucketName: string, props?: cdk.StackProps) {    
-    super(scope, id, props);
-
-
-
-
-
- /*   const sampleSecurityGroup = new ec2.SecurityGroup(this, 'security-group', { 
-      vpc: vpc, allowAllOutbound: true, description: 'Security Group Sample', securityGroupName: "SAMPLE-SG" });
-      
-    const myoutput = new cdk.CfnOutput(this, 'Security-group-id-output', { 
-      description: 'Security group in Stack A', exportName: 'security-id-output', value: sampleSecurityGroup.securityGroupId });
-      cdk.Fn.importValue("security-id-output");   */
-  }
-}
-
 export class localComponent extends cdk.Stack {
   constructor(scope: Construct, id: string, version: string, bucketName: string, props?: cdk.StackProps) {    
     super(scope, id, props);
