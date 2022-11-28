@@ -2,7 +2,7 @@
 
 여기에서는 AWS의 개발환경인 Cloud9을 이용하여 Docker image된 ML 알고리즘을 IoT Greengrass에 배포하는 일련의 과정을 설명합니다. 
 
-# Cloud9을 Greengrass 디바이스로 사용하기
+# 1) Cloud9을 Greengrass 디바이스로 사용하기
 
 Cloud9은 브라우저만으로 코드를 작성, 실행 및 디버깅할 수 있는 클라우드 기반 IDE(통합 개발 환경)로서 Greengrass 디바이스 동작을 테스트하기에 유용합니다.
 
@@ -18,7 +18,7 @@ Cloud9은 브라우저만으로 코드를 작성, 실행 및 디버깅할 수 �
 
 아래로 이동하여 [Create]를 선택하면 수분후에 Cloud9이 생성됩니다.
 
-## Greengrass 설치하기 
+## 2) Greengrass 설치하기 
 
 ### Greengrass installer 다운로드
 
@@ -57,7 +57,7 @@ sudo -E java -Droot="/greengrass/v2" -Dlog.store=FILE -jar ./GreengrassCore/lib/
 
 필요시 [EBS 크기 변경](https://github.com/kyopark2014/technical-summary/blob/main/resize.md)에 따라 EBS 크기를 확대합니다. 
 
-## Docker Container Preparation
+## 3) Docker Container Preparation
 
 Greengrass에서 Docker Container를 Component이용하기 위해서는 아래와 같은 설정이 필요합니다. 
 
@@ -88,7 +88,7 @@ ECR을 사용하기 위해서는 [device role](https://docs.aws.amazon.com/green
 }
 ```
 
-## CDK Deployment
+## 4) CDK Deployment
 
 여기에서는 CDK를 이용해 머신러닝 알고리즘 추론을 IoT Greengrass에 배포하는 방법에 대해 설명합니다. 
 
@@ -124,49 +124,8 @@ Component들이 여러개의 stack으로 구성하였으므로 아래와 같이 
 cdk deploy --all
 ```
 
-### 신규로 CDK를 생성하는 경우
+## 배포 결과 확인
 
-[CDK 초기화](https://github.com/kyopark2014/technical-summary/blob/main/cdk-introduction.md#cdk-initiation)를 참조하여 아래처럼 CDK를 신규로 생성합니다.
-
-```java
-mkdir cdk-ml-iot && cd cdk-ml-iot
-cdk init app --language typescript
-```
-
-아래와 같이 bootstrap을 수행합니다. AWS 계정 당 한번만 수행하면 됩니다.
-
-```java
-cdk bootstrap aws://123456789012/ap-northeast-2
-```
-
-여기서 “123456789012”는 AWS account number입니다. 이 값은 AWS Console에서 확인할 수 있고, 아래와 같이 AWS CLI 명령어로 확인할 수도 있습니다.
-
-```java
-aws sts get-caller-identity --query Account --output text
-```
-
-CDK V2를 설치합니다.
-
-```java
-cd cdk-ml-iot
-npm install aws-cdk-lib
-```
-
-Path 라이브러리를 설치합니다.
-
-```java
-npm install path
-```
-
-[cdk-ml-iot-stack.ts](https://github.com/kyopark2014/iot-with-ML-container/blob/main/cdk-ml-iot/lib/cdk-ml-iot-stack.ts)를 참조하여 import와 component 선언 및 배포 부분을 복사합니다. 
-
-Component들이 여러개의 stack으로 구성하였으므로 아래와 같이 배포를 수행합니다. 
-
-```java
-cdk deploy --all
-```
-
-## 배포상태의 확인
 
 [Greengrass Console - Deployment](https://ap-northeast-2.console.aws.amazon.com/iot/home?region=ap-northeast-2#/greengrass/v2/deployments)에서 아래와 같이 배포상태를 확인합니다. 
 
@@ -200,38 +159,6 @@ sudo tail -f /greengrass/v2/logs/com.ml.consumer.log
 cdk destroy --all
 ```
 
-
-## 참고자료
-
-아래는 추후 사용할 가능성이 있는 CDK 코드입니다.
-
-Acount ID 확인합니다.
-
-```java
-const accountId = cdk.Stack.of(this).account
-new cdk.CfnOutput(this, 'accountId', {
-  value: accountId,
-  description: 'accountId',
-});
-```
-
-IoT용 Repository를 만들어 deployment를 복사합니다. 
-
-```java
-const repo = new ecr.Repository(this, 'IoTRepository', {
-  repositoryName: 'iot_repository',
-  removalPolicy: cdk.RemovalPolicy.DESTROY,
-  imageTagMutability: ecr.TagMutability.IMMUTABLE
-});
-
-new ecrDeploy.ECRDeployment(this, 'DeployDockerImage', {
-  src: new ecrDeploy.DockerImageName(asset.imageUri),
-  dest: new ecrDeploy.DockerImageName(`${repo.repositoryUri}:latest`),
-}); 
-
-repo.addLifecycleRule({ tagPrefixList: ['dev'], maxImageCount: 9999 });
-repo.addLifecycleRule({ maxImageAge: cdk.Duration.days(30) });
-```    
 
 
 ## Troubleshooting
