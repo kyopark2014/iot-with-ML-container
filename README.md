@@ -125,7 +125,7 @@ sudo tail -f /greengrass/v2/logs/com.ml.consumer.log
 
 ## Cloud9으로 Deployment 하기
 
-[Deployment](https://github.com/kyopark2014/iot-with-ML-container/blob/main/deployment-guide.md)에 따라 Cloud9에서 ML container component를 생성하는 방법에 대해 설명합니다. 
+[Deployment Guide](https://github.com/kyopark2014/iot-with-ML-container/blob/main/deployment-guide.md)에 따라 Cloud9에서 ML container component를 생성하는 방법에 대해 설명합니다. 
 
 ## Greengrass Commands와 Memo
 
