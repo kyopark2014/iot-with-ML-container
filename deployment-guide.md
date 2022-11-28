@@ -35,12 +35,12 @@ unzip greengrass-nucleus-latest.zip -d GreengrassCore
 
 ### Greengrass 설치 
 
-아래와 같이 디바이스 이름은 "GreengrassCore-18163f7ac3e", Group은 ggc_user:ggc_group로 설치를 진행합니다. 
+아래와 같이 디바이스 이름은 "GreengrassCore-18163f7ac3eabc", Group은 ggc_user:ggc_group로 설치를 진행합니다. 
 
 ```java
 sudo -E java -Droot="/greengrass/v2" -Dlog.store=FILE -jar ./GreengrassCore/lib/Greengrass.jar \
 	--aws-region ap-northeast-2 \
-	--thing-name GreengrassCore-18163f7ac3e \
+	--thing-name GreengrassCore-18163f7ac3eabc \
 	--thing-group-name GreengrassGroup \
 	--component-default-user ggc_user:ggc_group \
 	--provision true \
