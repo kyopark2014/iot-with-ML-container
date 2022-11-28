@@ -123,6 +123,10 @@ sudo tail -f /greengrass/v2/logs/com.ml.consumer.log
 2022-11-20T17:21:59.411Z [INFO] (Copier) com.ml.consumer: stdout. result: [6.573914051055908, 4.869720935821533]. {scriptName=services.com.ml.consumer.lifecycle.Run, serviceName=com.ml.consumer, currentState=RUNNING}
 ```
 
+## Cloud9으로 Deployment 하기
+
+[Deployment](https://github.com/kyopark2014/iot-with-ML-container/blob/main/deployment-guide.md)에 따라 Cloud9에서 ML container component를 생성하는 방법에 대해 설명합니다. 
+
 ## Greengrass Commands와 Memo
 
 유용한 [Greengrass 명령어와 중요한 메모들](https://github.com/kyopark2014/iot-greengrass/blob/main/greengrass-commands.md)를 정리하였습니다.
