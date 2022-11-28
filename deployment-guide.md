@@ -100,23 +100,13 @@ ECR을 사용하기 위해서는 [device role](https://docs.aws.amazon.com/green
 git clone https://github.com/kyopark2014/iot-with-ML-container
 ```
 
-cdk 폴더로 이동합니다. 
+cdk 폴더로 이동하여 필요한 라이브러리를 설치합니다. "aws-cdk-lib"는 CDK V2이고, "Path"는 Docker image 생성시 필요한 라이브러리입니다. 
 
 ```java
 cd iot-with-ML-container/cdk-ml-iot/
+npm install aws-cdk-lib path
 ```
 
-CDK V2를 설치합니다.
-
-```java
-npm install aws-cdk-lib
-```
-
-Path 라이브러리를 설치합니다.
-
-```java
-npm install path
-```
 
 Component들이 여러개의 stack으로 구성하였으므로 아래와 같이 배포를 수행합니다. 
 
