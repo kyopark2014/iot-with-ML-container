@@ -50,7 +50,9 @@ sudo -E java -Droot="/greengrass/v2" -Dlog.store=FILE -jar ./GreengrassCore/lib/
 
 설치가 다 완료가 되면, [Greengrass Console](https://ap-northeast-2.console.aws.amazon.com/iot/home?region=ap-northeast-2#/greengrass/v2/cores)에서 아래와 같이 Greengrass core device로 "GreengrassCore-18163f7ac3eabc"가 등록된것을 알 수 있습니다.
 
-![noname](https://user-images.githubusercontent.com/52392004/204112707-7d82e8dd-4e30-4c24-9e77-c64f42995a76.png)
+![noname](https://user-images.githubusercontent.com/52392004/204178744-147c98ec-0ac0-4495-a66a-6492e7b2d03c.png)
+
+
 
 
 ### Cloud9의 EBS 크기 변경 
