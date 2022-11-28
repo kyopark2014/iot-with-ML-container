@@ -12,34 +12,11 @@ export class CdkMlIotStack extends cdk.Stack {
     
     const deviceName = 'GreengrassCore-18163f7ac3e'
     const accountId = cdk.Stack.of(this).account
-    const bucketName = "gg-depolyment-storage-kyopark"
-
-    // s3 deployment
-    const s3deploy = new s3Deployment(scope, "s3-deployment", bucketName)      
-
-    // create local component
-    const version_consumer = "1.0.0"
-    const local = new localComponent(scope, "local-component", version_consumer, bucketName)      
-    local.addDependency(s3deploy);
-
-    // create container component - com.ml.xgboost
-    const version_xgboost = "1.0.0"
-    const container = new containerComponent(scope, "container-component", version_xgboost)   
-    container.addDependency(local);
-    
-    // deploy components
-    const deployment = new componentDeployment(scope, "deployments", version_consumer, version_xgboost, accountId, deviceName)   
-    deployment.addDependency(container);
-  }
-}
-
-export class s3Deployment extends cdk.Stack {
-  constructor(scope: Construct, id: string, bucketName: string, props?: cdk.StackProps) {    
-    super(scope, id, props);
+    // const bucketName = "gg-depolyment-storage-kyopark"    // In the case of static s3 name
 
     // S3 for artifact storage
     const s3Bucket = new s3.Bucket(this, "gg-depolyment-storage",{
-      bucketName: bucketName,
+      // bucketName: bucketName,
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
       autoDeleteObjects: true,
@@ -48,6 +25,7 @@ export class s3Deployment extends cdk.Stack {
     });
     new cdk.CfnOutput(this, 'bucketName', {
       value: s3Bucket.bucketName,
+      exportName: 's3-Bbucket-Name',
       description: 'The nmae of bucket',
     });
     new cdk.CfnOutput(this, 's3Arn', {
@@ -64,6 +42,36 @@ export class s3Deployment extends cdk.Stack {
       sources: [s3Deploy.Source.asset("../src")],
       destinationBucket: s3Bucket,
     });
+
+    // create local component
+    const version_consumer = "1.0.0"
+    const local = new localComponent(scope, "local-component", version_consumer, s3Bucket.bucketName)      
+    
+    // create container component - com.ml.xgboost
+    const version_xgboost = "1.0.0"
+    const container = new containerComponent(scope, "container-component", version_xgboost)   
+    container.addDependency(local);
+    
+    // deploy components
+    const deployment = new componentDeployment(scope, "deployments", version_consumer, version_xgboost, accountId, deviceName)   
+    deployment.addDependency(container); 
+  }
+}
+
+export class s3Deployment extends cdk.Stack {
+  constructor(scope: Construct, id: string, bucketName: string, props?: cdk.StackProps) {    
+    super(scope, id, props);
+
+
+
+
+
+ /*   const sampleSecurityGroup = new ec2.SecurityGroup(this, 'security-group', { 
+      vpc: vpc, allowAllOutbound: true, description: 'Security Group Sample', securityGroupName: "SAMPLE-SG" });
+      
+    const myoutput = new cdk.CfnOutput(this, 'Security-group-id-output', { 
+      description: 'Security group in Stack A', exportName: 'security-id-output', value: sampleSecurityGroup.securityGroupId });
+      cdk.Fn.importValue("security-id-output");   */
   }
 }
 
