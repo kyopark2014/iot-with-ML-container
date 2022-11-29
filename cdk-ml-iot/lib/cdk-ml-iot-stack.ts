@@ -12,7 +12,7 @@ export class CdkMlIotStack extends cdk.Stack {
     
     const deviceName = 'GreengrassCore-18163f7ac3e'
     const accountId = cdk.Stack.of(this).account
-    // const bucketName = "gg-depolyment-storage-kyopark"    // In the case of static s3 name
+    // const bucketName = "gg-depolyment-storage"    // In the case of static s3 name
 
     // S3 for artifact storage
     const s3Bucket = new s3.Bucket(this, "gg-depolyment-storage",{
