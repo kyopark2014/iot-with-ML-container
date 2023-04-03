@@ -4,7 +4,7 @@
 
 머신러닝 알고리즘을 IoT 디바이스의 동작에 활용하기 위해서 머신러닝 서버 API를 이용하면, 1) 디바이스는 항상 네트워크에 접속이 가능하여야 하고, 2) 디바이스의 숫자가 증가하면 서버의 처리 용량이 동일하게 증가되어야 하고, 3) 추론을 위한 API 호출 비용 부담으로 인해서, IoT 디바이스에서 머신러닝을 활용할 때 제한 요소가 될 수 있습니다. 
 
-[AWS Greengrass V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/what-is-iot-greengrass.html)는 오픈소스 edge runtime으로 2022년에 re-invtent에서 소개되었습니다. Java 기반의 Core는 Docker 컨테이너를 사용할 수 있는 component를 제공하고, IoT Greengrass Deployments를 통해 편리한 배포 환경을 제공합니다. 
+[AWS Greengrass V2](https://docs.aws.amazon.com/greengrass/v2/developerguide/what-is-iot-greengrass.html)는 오픈소스 edge runtime으로 2022년에 re-invent에서 소개되었습니다. Java 기반의 Core는 Docker 컨테이너를 사용할 수 있는 component를 제공하고, IoT Greengrass Deployments를 통해 편리한 배포 환경을 제공합니다. 
 
 
 
